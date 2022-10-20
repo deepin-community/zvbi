@@ -1,0 +1,647 @@
+zvbi (0.2.35-18) unstable; urgency=medium
+
+  * QA upload.
+
+  [ Joao Eriberto Mota Filho ]
+  * debian/upstream/metadata: added Bug-Database and Bug-Submit fields.
+
+  [ Debian Janitor ]
+  * Wrap long lines in changelog entries: 0.2.17-2.
+  * Set upstream metadata fields: Archive, Repository.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Mon, 06 Apr 2020 14:24:52 -0300
+
+zvbi (0.2.35-17) unstable; urgency=medium
+
+  * QA upload.
+  * Set Debian QA Group as maintainer. (see: #951284)
+  * debian/control:
+      - Added 'Rules-Requires-Root: no' to source stanza.
+      - Bumped Standards-Version to 4.5.0.
+  * debian/copyright: updated packaging copyright years.
+  * debian/salsa-ci.yml: added to provide CI tests for Salsa.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Thu, 13 Feb 2020 15:59:52 -0300
+
+zvbi (0.2.35-16) unstable; urgency=medium
+
+  * Using new DH level format. Consequently:
+      - debian/compat: removed.
+      - debian/control: changed from 'debhelper' to 'debhelper-compat' in
+        Build-Depends field and bumped level to 12.
+  * debian/control:
+      - Added a Pre-Depends field to allow zvbi skip systemd native flag.
+      - Bumped Standards-Version to 4.3.0.
+  * debian/copyright: updated packaging copyright years.
+  * debian/libzvbi-dev.examples: fixed to provide the source code only.
+  * debian/rules: added -ldl to DEB_LDFLAGS_MAINT_APPEND variable to fix
+    undefined symbols for libzvbi-chains.so. Thanks a lot to Paul Wise
+    <pabs@debian.org>. (Closes: #916672)
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Mon, 21 Jan 2019 14:43:22 -0200
+
+zvbi (0.2.35-15) unstable; urgency=medium
+
+  [ Joao Eriberto Mota Filho ]
+  * debian/copyright: added rights for Ondřej Nový.
+  * debian/gbp.conf: added to allow gbp export-orig.
+  * debian/libzvbi-dev.examples: created to provide examples from upstream.
+  * debian/libzvbi0.symbols: added Build-Depends-Package field.
+  * debian/tests/control: added a new stanza to use upstream test.
+
+  [ Ondřej Nový ]
+  * debian/watch: use https protocol.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Tue, 04 Dec 2018 10:40:33 -0200
+
+zvbi (0.2.35-14) unstable; urgency=medium
+
+  * Migrated DH level to 11.
+  * debian/control:
+      - Bumped Standards-Version to 4.2.1.
+      - Changed Vcs-* URLs to salsa.debian.org.
+      - Removed no longer needed build dependency dh-autoreconf.
+      - Set 'Multi-Arch: foreign' for package libzvbi-doc.
+  * debian/copyright:
+      - Updated packaging copyright years.
+      - Using a secure copyright format in URI.
+  * debian/rules: removed '--with autoreconf' because it is default since DH 10.
+  * debian/tests/control: created to perform trivial tests.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Fri, 21 Sep 2018 22:59:37 -0300
+
+zvbi (0.2.35-13) unstable; urgency=medium
+
+  * debian/copyright:
+      - Added a new primary email address for upstream, making secondary the
+        current address.
+      - Added the Upstream-Contact field.
+      - Grouped some blocks.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Thu, 17 Nov 2016 17:58:15 -0200
+
+zvbi (0.2.35-12) unstable; urgency=medium
+
+  * Bumped DH level to 10.
+  * debian/control:
+      - Added tzdata to Build-Depends field to avoid a FTBFS. Thanks to Lucas
+        Nussbaum <lucas@debian.org>. (Closes: #839476)
+      - Added lsb-base to Depends field in zvbi binary.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sun, 09 Oct 2016 14:45:11 -0300
+
+zvbi (0.2.35-11) unstable; urgency=medium
+
+  * Upload to unstable.
+  * Ack for NMU. Thanks a lot to Breno Leitao <brenohl@br.ibm.com> for the fix
+    to FTBFS with GCC-6. (Closes: #811789)
+  * debian/control:
+      - Bumped Standards-Version to 3.9.8.
+      - Removed the Section field from libzvbi-common. (Closes: #805791)
+      - Removed unnecessary build dependencies rdfind and symlinks.
+      - Updated the Vcs-* fields to use https instead of http and git.
+  * debian/copyright:
+      - Added rights to Breno Leitao.
+      - Updated the packaging copyright years.
+  * debian/patches/:
+      - 06_sizeof_FTBFS.patch: renamed to 06_sizeof-FTBFS.patch.
+      - 09_FTBFS_gcc6.patch:
+          ~ Renamed to 09_fix-FTBFS-GCC6.patch.
+          ~ Added a header.
+  * debian/watch: bumped to version 4.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sun, 07 Aug 2016 12:09:54 -0300
+
+zvbi (0.2.35-10.1) experimental; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix FTBFS with GCC 6. The test code is using values that overflow the
+     variable types. I just replaced the values with a saner value
+     (double checked that it didn't change when compiling with GCC5 and
+     GCC6 with this fix). (Closes: #811789)
+
+ -- Breno Leitao <brenohl@br.ibm.com>  Sun, 17 Jul 2016 18:02:37 -0400
+
+zvbi (0.2.35-10) unstable; urgency=medium
+
+  * Migrations:
+      - Using a new and unique symbol file (trying a universal format).
+  * debian/control: changed the section of the libzvbi-common from libs to
+      devel. (Closes: #805791)
+  * debian/libzvbi0.postrm: useless because the package libzvbi0 doesn't
+      install a default file in /etc/default/ directory. Removed.
+  * debian/patches/: added the 'patch' suffix to all patch names.
+  * debian/rules: added override_dh_makeshlibs to provide the right package
+      version to dpkg-gensymbols.
+  * debian/source/options: not needed. The build system is using autoreconf.
+      Removed.
+  * debian/zvbi.links: created to avoid an init rcS script without a systemd
+      service. (Closes: #796707)
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sat, 28 Nov 2015 23:23:24 -0200
+
+zvbi (0.2.35-9) unstable; urgency=medium
+
+  * Added the special symbols for kfreebsd-amd64 and kfreebsd-i386.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sun, 28 Jun 2015 15:56:40 -0300
+
+zvbi (0.2.35-8) unstable; urgency=medium
+
+  * Upload to unstable.
+  * debian/libzvbi0.symbols.hurd-i386: added to provide the right symbols for
+      hurd-i386.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sat, 30 May 2015 19:25:00 -0300
+
+zvbi (0.2.35-7) experimental; urgency=medium
+
+  * debian/changelog: fixed these words, in old entries, to make
+      easier the spell check: daemon, dependency, directory, patch,
+      and removed.
+  * debian/control: fix a little issue in long description. Thanks
+      to Daniele Forsi <dforsi@gmail.com>. (Closes: #785794)
+  * debian/libzvbi0.symbols:
+      - Regenerated the main symbols file.
+      - Upload to experimental to fix the symbols for all archs.
+  * debian/patches/:
+      - Added 00_fix-configure.in to fix some warnings.
+      - Reviewed the 01_Makefile.in patch, created by Marillat and
+        applied over daemon/Makefile.in file. Now, the patch must be
+        applied over daemon/Makefile.am.
+      - Renamed a patch from 01_Makefile.in to 01_Makefile.am.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Wed, 20 May 2015 08:22:46 -0300
+
+zvbi (0.2.35-6) unstable; urgency=medium
+
+  * Fix a FTBFS.
+  * debian/libzvbi-doc.links: created to provide a symlink to jquery.js,
+    avoiding an embedded library.
+  * debian/rules: removed the target 'override_dh_install'.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Tue, 05 May 2015 09:26:34 -0300
+
+zvbi (0.2.35-5) unstable; urgency=medium
+
+  * debian/rules:
+      - Added -f to rm command to fix a FTBFS.
+      - Improved the jquery.js symlink creation.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Tue, 05 May 2015 06:43:59 -0300
+
+zvbi (0.2.35-4) unstable; urgency=medium
+
+  * New maintainer. (Closes: #652225)
+  * Removed the embedded library jquery.js in libzvbi-doc binary. Now, the
+      package depends of the libjs-jquery.
+  * debian/control:
+      - Added the Vcs-* fields.
+      - Added rdfind and symlinks to Build-Depends field.
+      - Added 'zvbi-atsc-cc' in long description for zvbi binary.
+      - Bumped Standards-Version to 3.9.6.
+      - Updated the long descriptions, using the most recent text found at
+        upstream homepage.
+  * debian/copyright:
+      - Migrated to 1.0 format.
+      - Adopting BSD-3-Clause for packaging.
+      - Revised and updated all information. Fixed some issues.
+  * debian/networks.xml: removed. This file is useless for some time. It
+      was created to help the died patch 02_network-table.h.dpatch.
+  * debian/patches/:
+      - Added/updated all headers.
+      - Added patches 07_fix-spelling-in-binaries and 08_fix-manpage.
+  * debian/rules:
+      - Added the variable 'DEB_LDFLAGS_MAINT_APPEND' to avoid a useless
+        linked dependency.
+      - Deleted the lines to remove '.la' files from debian/tmp.
+      - Using rdfind and symlinks to avoid duplicated files.
+  * debian/stamp-patched: useless. Removed.
+  * debian/watch: improved.
+  * debian/zvbi.init:
+      - Added source init functions.
+      - Added the 'status' command.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Mon, 04 May 2015 17:30:48 -0300
+
+zvbi (0.2.35-3) unstable; urgency=medium
+
+  * QA upload
+  * Fix the provided symbols on kfreebsd and hurd, so that the packages
+    builds again as before. Closes: #731481
+  * Remove the following files on dh_clean: doc/doxygen_sqlite3.db
+
+ -- Andreas Barth <aba@ayous.org>  Sun, 21 Sep 2014 17:56:38 +0000
+
+zvbi (0.2.35-2) unstable; urgency=low
+
+  * QA upload
+  * Add 06_sizeof_FTBFS.diff. Closes: #726186
+
+ -- Jackson Doak <noskcaj@ubuntu.com>  Tue, 15 Oct 2013 06:29:56 +1100
+
+zvbi (0.2.35-1) unstable; urgency=low
+
+  * QA Upload
+  * New upstream release. Closes: #715373
+  * debian/patches:
+    - Drop 02_FTBFS.diff, fixed in upstream
+    - Drop 02_libpng15.diff, fixed in upstream
+    - Refresh remaining patches
+  * debian/libzvbi0.postrm: Add set -e
+  * debian/rules:
+    - Use dh_autoreconf instead of quilt and autotools
+    - Enable hardening
+    - Remove dh_makeshlibs override
+  * debian/control:
+    - Drop b-dep on quilt, autotools-dev
+    - B-dep on dh-autoreconf
+  * debian/copyright: Convert to debian format 1.0
+  * Generate symbols to libzvbi0.symbols
+
+ -- Jackson Doak <noskcaj@ubuntu.com>  Tue, 01 Oct 2013 13:51:23 +1000
+
+zvbi (0.2.33-7) unstable; urgency=low
+
+  * QA upload.
+  * Maintainer field set to QA group.
+  * Standards-Version bumped.
+
+ -- Emanuele Rocca <ema@debian.org>  Mon, 01 Apr 2013 20:13:49 +0200
+
+zvbi (0.2.33-6) unstable; urgency=low
+
+  * Fix unconditional MAXPATHLEN use (Closes: #676130)
+  * Added multi-arch support.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 14 Jun 2012 08:15:54 +0200
+
+zvbi (0.2.33-5) unstable; urgency=low
+
+  * Apply patch from Nobuhiro Iwamatsu to fix build with libpng15 (Closes:
+    #650482)
+  * Add multi-arch support.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 12 Mar 2012 08:04:05 +0100
+
+zvbi (0.2.33-4) unstable; urgency=low
+
+  * New patch 03_fails-to-write to fix write output to a file
+    (Closes: #603128).
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 26 Nov 2010 08:30:07 +0100
+
+zvbi (0.2.33-3) unstable; urgency=low
+
+  * Update config.sub and config.guess for avr32 arch (Closes: #533781).
+  * Add missing sys/stat.h include (Closes: #602880).
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 09 Nov 2010 09:21:04 +0100
+
+zvbi (0.2.33-2) unstable; urgency=low
+
+  * Replaces bullet character o by * to make aptitude happy
+    (Closes: #590241).
+  * debian/control call source:Version instead of binary:Version for binNMU
+    (Closes: #595673).
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 08 Sep 2010 11:08:21 +0200
+
+zvbi (0.2.33-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 15 Feb 2009 17:29:27 +0100
+
+zvbi (0.2.31-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/libzvbi-doc.doc-base: Changes section to Programming
+  * Move to debhelper V7 (No changes).
+  * Bump Standards-Version to 3.8.0 (No changes).
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 28 Jul 2008 09:10:55 +0200
+
+zvbi (0.2.30-1) unstable; urgency=low
+
+  * New upstream release.
+  * From upstream : Restored these functions (vbi_is_cached,
+    vbi_cache_hi_subno) which were lost in 0.2.28.  (Closes: #467575)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 07 Mar 2008 16:37:08 +0100
+
+zvbi (0.2.29-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 01 Mar 2008 17:14:59 +0100
+
+zvbi (0.2.28-1) unstable; urgency=low
+
+  * New upstream release.
+  * Removed 02_kFreeBSD.dpatch patch included upstream.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 23 Feb 2008 09:30:18 +0100
+
+zvbi (0.2.27-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 17 Feb 2008 11:07:00 +0100
+
+zvbi (0.2.26-3) unstable; urgency=low
+
+  * Remove /etc/default/libzvbi0 on purge (Closes: #454379)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 07 Dec 2007 11:37:21 +0100
+
+zvbi (0.2.26-2) unstable; urgency=low
+
+  * Debian policy 3.7.3
+    o Use binary:Version instead of Source-Version
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 03 Dec 2007 10:32:27 +0100
+
+zvbi (0.2.26-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 28 Nov 2007 15:47:27 +0100
+
+zvbi (0.2.25-2) unstable; urgency=low
+
+  * Move pkgconfig file in the -dev package (Closes: #432263)
+  * Now use dh_install
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 18 Jul 2007 15:36:49 +0200
+
+zvbi (0.2.25-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 10 Mar 2007 17:22:23 +0100
+
+zvbi (0.2.24-2) unstable; urgency=low
+
+  * Change short description (Closes: #389603)
+  * Force proxy build with --enable-proxy and add a patch to fix build
+    problem on kFreeBSD (Closes: #407621)
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 20 Jan 2007 14:39:35 +0100
+
+zvbi (0.2.24-1) unstable; urgency=low
+
+  * New upstream release.
+  * Doesn't use RAW as a macro (Closes: #372302)
+  * Describe zvbi-ntsc-cc in description (Closes: #389608)
+  * Update watch file.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 19 Jan 2007 14:38:27 +0100
+
+zvbi (0.2.22-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Wed,  7 Jun 2006 08:25:52 +0200
+
+zvbi (0.2.21-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 12 May 2006 16:47:41 +0200
+
+zvbi (0.2.19-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 27 Feb 2006 14:24:16 +0100
+
+zvbi (0.2.18-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 19 Feb 2006 11:32:11 +0100
+
+zvbi (0.2.17-5) unstable; urgency=low
+
+  * Don't need to Build-Depends on xlibs-dev (Closes: #346871)
+
+ -- Christian Marillat <marillat@debian.org>  Mon,  9 Jan 2006 08:05:14 +0100
+
+zvbi (0.2.17-4) unstable; urgency=low
+
+  * Don't make libzvbi0 depends on a too strict libzvbi-common version
+    (Closes: #335298)
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 23 Oct 2005 15:19:53 +0200
+
+zvbi (0.2.17-3) unstable; urgency=low
+
+  * The -dev package should depends on libpng-dev not libpng10-dev.
+  * Move to dpatch.
+  * Need to Build-depends on libxml-simple-perl.
+  * New patch. Don't try to download networks.xml from sf.net instead use
+    the file in debian directory.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 14 Oct 2005 00:34:18 +0200
+
+zvbi (0.2.17-2) unstable; urgency=low
+
+  * Build-depends on libpng-dev instead of versioned libpng-xxx-dev
+    (Closes: #333558).
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 12 Oct 2005 21:56:26 +0200
+
+zvbi (0.2.17-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/copyright Updated FSF address.
+
+ -- Christian Marillat <marillat@debian.org>  Wed, 12 Oct 2005 14:55:05 +0200
+
+zvbi (0.2.16-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Tue,  7 Jun 2005 09:21:57 +0200
+
+zvbi (0.2.15-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sun, 17 Apr 2005 19:03:40 +0200
+
+zvbi (0.2.14-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 11 Mar 2005 14:29:16 +0100
+
+zvbi (0.2.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Removed previous patch included by upstream.
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 24 Jan 2005 10:18:59 +0100
+
+zvbi (0.2.12-2) unstable; urgency=low
+
+  * New patch to fix bad include path (Closes: #291599)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 21 Jan 2005 20:07:15 +0100
+
+zvbi (0.2.12-1) unstable; urgency=low
+
+  * New upstream release.
+  * Removed amd64 patch, included by upstream.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 20 Jan 2005 09:43:07 +0100
+
+zvbi (0.2.11-3) unstable; urgency=low
+
+  * Fix warning for amd64 (Closes: #290444)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 14 Jan 2005 14:39:37 +0100
+
+zvbi (0.2.11-2) unstable; urgency=low
+
+  * Update shlibs to 0.2.11
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 13 Jan 2005 08:44:09 +0100
+
+zvbi (0.2.11-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add an init.d script to start the zvbid daemon in the zvbi package.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 31 Dec 2004 11:44:42 +0100
+
+zvbi (0.2.9-2) unstable; urgency=low
+
+  * Update shlibs to that version to be sure to install the new libraries.
+  * zvbi-chains now load libzvbi-chains.so.0.0.0 (Closes: 283004)
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 27 Nov 2004 16:55:18 +0100
+
+zvbi (0.2.9-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 12 Nov 2004 14:39:18 +0100
+
+zvbi (0.2.8-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 20 May 2004 14:45:21 +0200
+
+zvbi (0.2.7-2) unstable; urgency=low
+
+  * Change section for libzvbi-common devel --> libs (Closes: #243292)
+
+ -- Christian Marillat <marillat@debian.org>  Mon, 12 Apr 2004 11:51:00 +0200
+
+zvbi (0.2.7-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Fri,  9 Apr 2004 21:05:20 +0200
+
+zvbi (0.2.5-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sun,  9 Nov 2003 15:30:30 +0100
+
+zvbi (0.2.4-3) unstable; urgency=low
+
+  * I've nothing to do today, then I rebuild this package against latest libpng
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 22 Jul 2003 18:54:09 +0200
+
+zvbi (0.2.4-2) unstable; urgency=low
+
+  * Update section
+  * Build against libpng10-dev and change the -dev dependency
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 10 May 2003 16:44:12 +0200
+
+zvbi (0.2.4-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix wrong assumption on char signedness (Closes: #160948)
+
+ -- Christian Marillat <marillat@debian.org>  Tue, 18 Feb 2003 15:11:27 +0100
+
+zvbi (0.2.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove patch for char signedness.
+  * Move documentation in the -doc package.
+
+ -- Christian Marillat <marillat@debian.org>  Sun,  1 Dec 2002 14:43:14 +0100
+
+zvbi (0.2.2-2) unstable; urgency=low
+
+  * Fix wrong assumption on char signedness (Closes: #164172)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 11 Oct 2002 18:35:31 +0200
+
+zvbi (0.2.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Change library name to libzvbi0
+  * Move I18N files in -common package.
+  * Add doxygen in build-depends
+
+ -- Christian Marillat <marillat@debian.org>  Fri,  4 Oct 2002 17:55:27 +0200
+
+zvbi (0.2.1-4) unstable; urgency=low
+
+  * Update to standards version 3.5.7
+
+ -- Christian Marillat <marillat@debian.org>  Sat, 21 Sep 2002 14:47:38 +0200
+
+zvbi (0.2.1-3) unstable; urgency=low
+
+  * Build against against libpng2-dev
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 29 Aug 2002 19:11:32 +0200
+
+zvbi (0.2.1-2) unstable; urgency=low
+
+  * Build against libpng3.
+
+ -- Christian Marillat <marillat@debian.org>  Wed,  7 Aug 2002 18:05:49 +0200
+
+zvbi (0.2.1-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Christian Marillat <marillat@debian.org>  Sat,  8 Jun 2002 19:00:57 +0200
+
+zvbi (0.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Should fix a segfault (Closes: #148235)
+
+ -- Christian Marillat <marillat@debian.org>  Fri, 31 May 2002 21:46:30 +0200
+
+zvbi (0.1.1-2) unstable; urgency=low
+
+  * Upgrade build-depends (Closes: #141018)
+
+ -- Christian Marillat <marillat@debian.org>  Wed,  3 Apr 2002 10:10:07 +0200
+
+zvbi (0.1.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Move the doc-base file in the -dev package (Closes: #140799)
+
+ -- Christian Marillat <marillat@debian.org>  Mon,  1 Apr 2002 18:12:58 +0200
+
+zvbi (0.1-1) unstable; urgency=low
+
+  * Initial Release (Closes: #138310)
+
+ -- Christian Marillat <marillat@debian.org>  Thu, 14 Mar 2002 18:07:00 +0100

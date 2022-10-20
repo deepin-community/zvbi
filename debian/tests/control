@@ -1,0 +1,6 @@
+Test-Command: zvbi-atsc-cc -h
+
+Test-Command: zvbi-ntsc-cc -h
+
+Test-Command: dh_auto_test
+Depends: @, debhelper

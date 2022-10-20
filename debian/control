@@ -1,0 +1,220 @@
+Source: zvbi
+Section: devel
+Priority: optional
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Standards-Version: 4.5.0
+Build-Depends: debhelper-compat (= 12),
+               doxygen,
+               libpng-dev,
+               libxml-simple-perl,
+               tzdata
+Rules-Requires-Root: no
+Homepage: http://zapping.sf.net/ZVBI
+Vcs-Browser: https://salsa.debian.org/debian/zvbi
+Vcs-Git: https://salsa.debian.org/debian/zvbi.git
+
+Package: libzvbi0
+Architecture: any
+Section: libs
+Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
+Depends: ${shlibs:Depends}, libzvbi-common (= ${source:Version}), ${misc:Depends}
+Replaces: libzvbi-0.1 (<= 0.2.1-3)
+Description: Vertical Blanking Interval decoder (VBI) - runtime files
+ The vertical blanking interval (VBI) is an interval in a television signal
+ that temporarily suspends transmission of the signal for the electron gun
+ to move back up to the first line of the television screen to trace the
+ next screen field.
+ .
+ The vertical blanking interval can be used to carry data, since anything
+ sent during the VBI would naturally not be displayed; various test signals,
+ closed captioning, and other digital data can be sent during this time
+ period. These include information like closed-caption data, Teletext
+ (primarily in Europe), and now Intercast and the ATVEC Internet television
+ encodings.
+ .
+ The Zapping VBI library, in short ZVBI, provides functions to capture and
+ decode VBI data. It is written in plain ANSI C with few dependencies on
+ other tools and libraries, licensed under GPL. Some features:
+   * Captures raw VBI samples from V4L, V4L2 and FreeBSD BKTR devices, sliced
+     VBI data from Linux DVB devices;
+   * Implements a VBI Proxy to share one VBI device between multiple
+     applications;
+   * Has a robust and versatile bit slicer which handles a wide range of data
+     services;
+   * Functions to capture multiple data services at once, such as Closed
+     Caption (both NTSC and PAL), Teletext, VPS, WSS, XDS;
+   * Level 3.5 Teletext decoder with support for all Teletext character sets,
+     graphics, 4096 colors, with built-in page cache including search
+     functions;
+   * Closed Caption decoder which supports roll-up, pop-up and paint-on style
+     caption, color, expanded character set, text attributes and free text
+     placement;
+   * Renders Teletext and Caption pages, can export to HTML, PNG and other
+     formats.
+   * Can determine network names;
+   * Can find Teletext subtitle and program pages;
+   * Functions to extract data transmissions in Teletext streams (currently
+     Page Format Clear and Independent Data Line Format A);
+   * Can multiplex and demultiplex DVB VBI PES and TS streams.
+
+Package: libzvbi-dev
+Architecture: any
+Section: libdevel
+Multi-Arch: same
+Depends: libzvbi0 (= ${binary:Version}), libpng-dev, ${misc:Depends}
+Replaces: libzvbi0 (<= 0.2.25-1)
+Description: Vertical Blanking Interval decoder (VBI) - development files
+ The vertical blanking interval (VBI) is an interval in a television signal
+ that temporarily suspends transmission of the signal for the electron gun
+ to move back up to the first line of the television screen to trace the
+ next screen field.
+ .
+ The vertical blanking interval can be used to carry data, since anything
+ sent during the VBI would naturally not be displayed; various test signals,
+ closed captioning, and other digital data can be sent during this time
+ period. These include information like closed-caption data, Teletext
+ (primarily in Europe), and now Intercast and the ATVEC Internet television
+ encodings.
+ .
+ The Zapping VBI library, in short ZVBI, provides functions to capture and
+ decode VBI data. It is written in plain ANSI C with few dependencies on
+ other tools and libraries, licensed under GPL. Some features:
+   * Captures raw VBI samples from V4L, V4L2 and FreeBSD BKTR devices, sliced
+     VBI data from Linux DVB devices;
+   * Implements a VBI Proxy to share one VBI device between multiple
+     applications;
+   * Has a robust and versatile bit slicer which handles a wide range of data
+     services;
+   * Functions to capture multiple data services at once, such as Closed
+     Caption (both NTSC and PAL), Teletext, VPS, WSS, XDS;
+   * Level 3.5 Teletext decoder with support for all Teletext character sets,
+     graphics, 4096 colors, with built-in page cache including search
+     functions;
+   * Closed Caption decoder which supports roll-up, pop-up and paint-on style
+     caption, color, expanded character set, text attributes and free text
+     placement;
+   * Renders Teletext and Caption pages, can export to HTML, PNG and other
+     formats.
+   * Can determine network names;
+   * Can find Teletext subtitle and program pages;
+   * Functions to extract data transmissions in Teletext streams (currently
+     Page Format Clear and Independent Data Line Format A);
+   * Can multiplex and demultiplex DVB VBI PES and TS streams.
+ .
+ This package contains development files.
+
+Package: libzvbi-common
+Architecture: all
+Multi-Arch: foreign
+Replaces: libzvbi-0.1 (<= 0.2.1-3)
+Depends: ${misc:Depends}
+Description: Vertical Blanking Interval decoder (VBI) - common files
+ The vertical blanking interval (VBI) is an interval in a television signal
+ that temporarily suspends transmission of the signal for the electron gun
+ to move back up to the first line of the television screen to trace the
+ next screen field.
+ .
+ The vertical blanking interval can be used to carry data, since anything
+ sent during the VBI would naturally not be displayed; various test signals,
+ closed captioning, and other digital data can be sent during this time
+ period. These include information like closed-caption data, Teletext
+ (primarily in Europe), and now Intercast and the ATVEC Internet television
+ encodings.
+ .
+ The Zapping VBI library, in short ZVBI, provides functions to capture and
+ decode VBI data. It is written in plain ANSI C with few dependencies on
+ other tools and libraries, licensed under GPL. Some features:
+   * Captures raw VBI samples from V4L, V4L2 and FreeBSD BKTR devices, sliced
+     VBI data from Linux DVB devices;
+   * Implements a VBI Proxy to share one VBI device between multiple
+     applications;
+   * Has a robust and versatile bit slicer which handles a wide range of data
+     services;
+   * Functions to capture multiple data services at once, such as Closed
+     Caption (both NTSC and PAL), Teletext, VPS, WSS, XDS;
+   * Level 3.5 Teletext decoder with support for all Teletext character sets,
+     graphics, 4096 colors, with built-in page cache including search
+     functions;
+   * Closed Caption decoder which supports roll-up, pop-up and paint-on style
+     caption, color, expanded character set, text attributes and free text
+     placement;
+   * Renders Teletext and Caption pages, can export to HTML, PNG and other
+     formats.
+   * Can determine network names;
+   * Can find Teletext subtitle and program pages;
+   * Functions to extract data transmissions in Teletext streams (currently
+     Page Format Clear and Independent Data Line Format A);
+   * Can multiplex and demultiplex DVB VBI PES and TS streams.
+ .
+ This package contains internationalization files.
+
+Package: libzvbi-doc
+Architecture: all
+Section: doc
+Multi-Arch: foreign
+Replaces: libzvbi-dev (<= 0.2.2-2)
+Depends: ${misc:Depends}, libjs-jquery
+Description: Vertical Blanking Interval decoder (VBI) - documentation files
+ The vertical blanking interval (VBI) is an interval in a television signal
+ that temporarily suspends transmission of the signal for the electron gun
+ to move back up to the first line of the television screen to trace the
+ next screen field.
+ .
+ The vertical blanking interval can be used to carry data, since anything
+ sent during the VBI would naturally not be displayed; various test signals,
+ closed captioning, and other digital data can be sent during this time
+ period. These include information like closed-caption data, Teletext
+ (primarily in Europe), and now Intercast and the ATVEC Internet television
+ encodings.
+ .
+ The Zapping VBI library, in short ZVBI, provides functions to capture and
+ decode VBI data. It is written in plain ANSI C with few dependencies on
+ other tools and libraries, licensed under GPL. Some features:
+   * Captures raw VBI samples from V4L, V4L2 and FreeBSD BKTR devices, sliced
+     VBI data from Linux DVB devices;
+   * Implements a VBI Proxy to share one VBI device between multiple
+     applications;
+   * Has a robust and versatile bit slicer which handles a wide range of data
+     services;
+   * Functions to capture multiple data services at once, such as Closed
+     Caption (both NTSC and PAL), Teletext, VPS, WSS, XDS;
+   * Level 3.5 Teletext decoder with support for all Teletext character sets,
+     graphics, 4096 colors, with built-in page cache including search
+     functions;
+   * Closed Caption decoder which supports roll-up, pop-up and paint-on style
+     caption, color, expanded character set, text attributes and free text
+     placement;
+   * Renders Teletext and Caption pages, can export to HTML, PNG and other
+     formats.
+   * Can determine network names;
+   * Can find Teletext subtitle and program pages;
+   * Functions to extract data transmissions in Teletext streams (currently
+     Page Format Clear and Independent Data Line Format A);
+   * Can multiplex and demultiplex DVB VBI PES and TS streams.
+ .
+ This package contains documentation files.
+
+Package: zvbi
+Architecture: any
+Section: utils
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.0-6)
+Description: Vertical Blanking Interval (VBI) utilities
+ Television broadcasts use the VBI to transmit text such as closed captioning
+ (NTSC), Teletext (PAL/SECAM), and now Intercast and the ATVEC Internet
+ television encodings.  The zvbi library is used to capture and decode raw
+ VBI data.
+ .
+ This package contains the following utilities:
+  * zvbid, a proxy for VBI devices. It forwards VBI data streams to one or
+    more connected clients and manages channel change requests.
+  * zvbi-atsc-cc, a command-line utility that captures  ATSC TV transmissions
+    using a Linux DVB device and decodes the enclosed Closed Caption data.
+    It can record both NTSC caption (EIA 608-B) and DTVCC caption (CEA 708-C).
+  * zvbi-chains, a wrapper which executes the VBI application given on the
+    command line while overloading several C library calls so that the
+    application can be forced to access VBI devices via the VBI proxy instead
+    of device files directly.
+  * zvbi-ntsc-cc, a command-line utility for decoding and capturing closed
+    captioning (CC) for NTSC and webtv.
