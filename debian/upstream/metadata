@@ -1,4 +1,5 @@
-Archive: SourceForge
-Repository: https://svn.code.sf.net/p/zapping/svn/
-Bug-Database: https://sourceforge.net/projects/zapping/support
-Bug-Submit: https://sourceforge.net/projects/zapping/support
+Archive: GitHub
+Repository: https://github.com/zapping-vbi/zvbi.git
+Repository-Browse: https://github.com/zapping-vbi/zvbi
+Bug-Database: https://github.com/zapping-vbi/zvbi/issues
+Bug-Submit: https://github.com/zapping-vbi/zvbi/issues/new

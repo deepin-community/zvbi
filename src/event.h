@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: event.h,v 1.16 2009/12/14 23:43:29 mschimek Exp $ */
+/* $Id: event.h,v 1.16 2009-12-14 23:43:29 mschimek Exp $ */
 
 #ifndef EVENT_H
 #define EVENT_H

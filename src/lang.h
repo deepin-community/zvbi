@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: lang.h,v 1.9 2008/02/19 00:35:20 mschimek Exp $ */
+/* $Id: lang.h,v 1.9 2008-02-19 00:35:20 mschimek Exp $ */
 
 #ifndef LANG_H
 #define LANG_H

@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: cache.h,v 1.12 2008/03/05 13:33:11 mschimek Exp $ */
+/* $Id: cache.h,v 1.12 2008-03-05 13:33:11 mschimek Exp $ */
 
 #ifndef __ZVBI_CACHE_H__
 #define __ZVBI_CACHE_H__

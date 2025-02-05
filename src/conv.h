@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: conv.h,v 1.9 2008/02/24 14:17:58 mschimek Exp $ */
+/* $Id: conv.h,v 1.9 2008-02-24 14:17:58 mschimek Exp $ */
 
 #ifndef __ZVBI_CONV_H__
 #define __ZVBI_CONV_H__

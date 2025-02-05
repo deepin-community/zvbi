@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: hamm.c,v 1.11 2013/07/10 11:37:08 mschimek Exp $ */
+/* $Id: hamm.c,v 1.11 2013-07-10 11:37:08 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

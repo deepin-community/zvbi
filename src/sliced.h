@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: sliced.h,v 1.11 2008/02/24 14:17:02 mschimek Exp $ */
+/* $Id: sliced.h,v 1.11 2008-02-24 14:17:02 mschimek Exp $ */
 
 #ifndef SLICED_H
 #define SLICED_H

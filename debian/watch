@@ -1,2 +1,3 @@
 version=4
-https://sf.net/zapping/zvbi-(\d\S+)\.tar\.(?:bz2|gz|xz)
+opts=pgpsigurlmangle=s/archive\/refs\/tags\/v(\d\.\d\.\d+)\.tar\.gz/releases\/download\/v$1\/v$1\.tar\.gz\.asc/ \
+ https://github.com/zapping-vbi/zvbi/tags .*/v?(\d\S+)\.tar\.gz

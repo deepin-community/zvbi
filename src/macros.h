@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: macros.h,v 1.12 2013/07/10 23:11:18 mschimek Exp $ */
+/* $Id: macros.h,v 1.12 2013-07-10 23:11:18 mschimek Exp $ */
 
 #ifndef __ZVBI_MACROS_H__
 #define __ZVBI_MACROS_H__

@@ -21,7 +21,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: teletext_decoder.h,v 1.3 2013/07/02 02:32:41 mschimek Exp $ */
+/* $Id: teletext_decoder.h,v 1.3 2013-07-02 02:32:41 mschimek Exp $ */
 
 #ifndef TELETEXT_H
 #define TELETEXT_H

@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: dlist.h,v 1.2 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: dlist.h,v 1.2 2008-02-19 00:35:15 mschimek Exp $ */
 
 #ifndef DLIST_H
 #define DLIST_H

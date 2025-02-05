@@ -32,10 +32,7 @@
  *    command line (e.g. device path) are passed to the library by means
  *    of environment variables.
  *
- *  $Log: chains.c,v $
- *  Revision 1.4  2008/07/26 06:22:28  mschimek
- *  Changed the license to GPLv2+ with Tom's permission.
- *
+ *  $Log: not supported by cvs2svn $
  *  Revision 1.3  2007/11/27 17:39:34  mschimek
  *  *** empty log message ***
  *
@@ -48,7 +45,7 @@
  *
  */
 
-static const char rcsid[] = "$Id: chains.c,v 1.4 2008/07/26 06:22:28 mschimek Exp $";
+static const char rcsid[] = "$Id: chains.c,v 1.4 2008-07-26 06:22:28 mschimek Exp $";
 
 #include "config.h"
 

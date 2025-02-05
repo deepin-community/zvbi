@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: cc608_decoder.c,v 1.2 2009/12/14 23:43:23 mschimek Exp $ */
+/* $Id: cc608_decoder.c,v 1.2 2009-12-14 23:43:23 mschimek Exp $ */
 
 /* This code is experimental and not yet part of the library.
    Tests pending. */

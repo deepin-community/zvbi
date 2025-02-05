@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: sliced_filter.h,v 1.5 2008/02/24 14:16:58 mschimek Exp $ */
+/* $Id: sliced_filter.h,v 1.5 2008-02-24 14:16:58 mschimek Exp $ */
 
 #ifndef __ZVBI_SLICED_FILTER_H__
 #define __ZVBI_SLICED_FILTER_H__

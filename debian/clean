@@ -1,1 +1,7 @@
 doc/doxygen_sqlite3.db
+po/*.gmo
+COPYING
+configure
+po/Makevars.template
+po/stamp-po
+po/zvbi.pot

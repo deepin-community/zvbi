@@ -1,7 +1,7 @@
 /*
  *  libzvbi -- Miscellaneous cows and chickens
  *
- *  Copyright (C) 2000-2003 Iñaki García Etxebarria
+ *  Copyright (C) 2000-2003 IÃ±aki GarcÃ­a Etxebarria
  *  Copyright (C) 2002-2007 Michael H. Schimek
  *
  *  This library is free software; you can redistribute it and/or
@@ -20,7 +20,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: misc.h,v 1.24 2013/07/02 02:32:31 mschimek Exp $ */
+/* $Id: misc.h,v 1.24 2013-07-02 02:32:31 mschimek Exp $ */
 
 #ifndef MISC_H
 #define MISC_H
@@ -432,8 +432,11 @@ _vbi_time_max			(void)
 #ifndef HAVE_STRLCPY
 #  define strlcpy _vbi_strlcpy
 #endif
+
+#ifndef _WIN32
 #undef strncpy
 #define strncpy use_strlcpy_instead
+#endif
 
 extern size_t
 _vbi_strlcpy			(char *			dst,

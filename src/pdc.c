@@ -17,7 +17,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: pdc.c,v 1.4 2009/03/23 01:30:33 mschimek Exp $ */
+/* $Id: pdc.c,v 1.4 2009-03-23 01:30:33 mschimek Exp $ */
 
 #include "../site_def.h"
 
@@ -25,9 +25,30 @@
 #  include "config.h"
 #endif
 
+#ifndef _POSIX_C_SOURCE
+#  define _POSIX_C_SOURCE 200112L
+// needed for localtime_r() and others on mingw-w64
+#endif
+
 #include <ctype.h>
 #include <float.h>		/* FLT_MAX, DBL_MAX */
 #include <errno.h>
+
+#ifdef _WIN32
+#  include <windows.h>
+static int setenv(const char *name, const char *value, int overwrite) {
+    if (!overwrite) {
+		char *old_value = getenv(name);
+		if (old_value) {
+			return 0;
+		}
+	}
+	return SetEnvironmentVariable(name, value) ? 0 : -1;
+}
+static int unsetenv(const char *name) {
+	return SetEnvironmentVariable(name, NULL) ? 0 : -1;
+}
+#endif
 
 #include "misc.h"
 #include "hamm.h"		/* vbi_unpar8() */
@@ -520,7 +541,11 @@ _vbi_mktime			(struct tm *		tm)
 	return result;
 }
 
-#ifdef HAVE_TIMEGM
+#if defined(HAVE_TIMEGM) || defined(_WIN32)
+
+#ifdef _WIN32
+#define timegm _mkgmtime
+#endif
 
 /**
  * @internal
@@ -551,6 +576,8 @@ _vbi_timegm			(struct tm *		tm)
 
 	return result;
 }
+
+#undef timegm
 
 #else
 

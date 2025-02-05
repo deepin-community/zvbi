@@ -19,12 +19,17 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-pdc.h,v 1.1 2009/03/04 21:48:57 mschimek Exp $ */
+/* $Id: test-pdc.h,v 1.2 2016-10-17 20:48:27 mschimek Exp $ */
 
 #include <float.h>
 #include <assert.h>
 #include "src/pdc.h"
 #include "test-common.h"
+
+#ifdef _WIN32
+#include "src/strptime.h"
+#define timegm _mkgmtime
+#endif
 
 static const vbi_pil max_pil = VBI_PIL (15, 31, 31, 63);
 
@@ -89,7 +94,7 @@ public:
 
 	bool operator == (const test_pid& other) const {
 		/* Note: bitwise equal. */
-		return (0 == memcmp (this, &other, sizeof (this)));
+		return (0 == memcmp (this, &other, sizeof (*this)));
 	}
 
 	void assert_valid_ttx (void) {
@@ -139,7 +144,7 @@ ztime				(const char *		s)
 	time_t t;
 
 	memset (&tm, 0, sizeof (tm));
-	assert (NULL != strptime (s, "%n%Y%m%dT%H%M%S", &tm));
+	assert (NULL != strptime (s, "%Y%m%dT%H%M%S", &tm));
 	t = timegm (&tm);
 	assert ((time_t) -1 != t);
 	return t;

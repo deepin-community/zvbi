@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: io-sim.c,v 1.18 2009/12/14 23:43:40 mschimek Exp $ */
+/* $Id: io-sim.c,v 1.18 2009-12-14 23:43:40 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -1397,7 +1397,7 @@ vbi_raw_video_image		(uint8_t *		raw,
 #if 3 == VBI_VERSION_MINOR
 #  include "io-priv.h"
 #else
-#  include "io.h"
+#  include "inout.h"
 #endif
 #include "hamm.h"
 

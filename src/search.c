@@ -22,7 +22,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: search.c,v 1.15 2008/02/19 00:35:21 mschimek Exp $ */
+/* $Id: search.c,v 1.15 2008-02-19 00:35:21 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

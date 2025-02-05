@@ -34,9 +34,9 @@
  */
  
 /*
- *  $Id: proxy-msg.c,v 1.20 2008/02/19 00:35:21 mschimek Exp $
+ *  $Id: proxy-msg.c,v 1.21 2013-08-28 14:45:06 mschimek Exp $
  *
- *  $Log: proxy-msg.c,v $
+ *  $Log: not supported by cvs2svn $
  *  Revision 1.20  2008/02/19 00:35:21  mschimek
  *  *** empty log message ***
  *
@@ -131,12 +131,16 @@
 #include <netdb.h>
 #include <syslog.h>
 #include <assert.h>
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
+#endif
+#ifdef HAVE_SYS_MMAN_H
 #include <sys/mman.h>
+#endif
 
 #include "bcd.h"
 #include "vbi.h"
-#include "io.h"
+#include "inout.h"
 #include "misc.h"
 #include "proxy-msg.h"
 
@@ -201,7 +205,8 @@ void vbi_proxy_msg_logger( int level, int clnt_fd, int errCode, const char * pTe
          if (fd >= 0)
          {  /* each line in the file starts with a timestamp */
             strftime(timestamp, sizeof(timestamp) - 1, "[%d/%b/%Y:%H:%M:%S +0000] ", gmtime(&now));
-            write(fd, timestamp, strlen(timestamp));
+            if (write(fd, timestamp, strlen(timestamp)) == -1)
+               fprintf(stderr, "Failed to write timestamp to file\n");
          }
       }
       else
@@ -242,7 +247,8 @@ void vbi_proxy_msg_logger( int level, int clnt_fd, int errCode, const char * pTe
       for (idx=0; idx < argc; idx++)
       {
          if (fd >= 0)
-            write(fd, argv[idx], strlen(argv[idx]));
+            if (write(fd, argv[idx], strlen(argv[idx])) == -1)
+               fprintf(stderr, "Failed to write %s to file\n", argv[idx]);
          if (proxy_msg_logcf.do_logtty && (level <= LOG_WARNING))
             fprintf(stderr, "%s", argv[idx]);
       }
@@ -250,7 +256,8 @@ void vbi_proxy_msg_logger( int level, int clnt_fd, int errCode, const char * pTe
       /* terminate the line with a newline character and close the file */
       if (fd >= 0)
       {
-         write(fd, "\n", 1);
+         if (write(fd, "\n", 1) == -1)
+            fprintf(stderr, "Failed to write '\\n' to file\n");
          close(fd);
       }
       if (proxy_msg_logcf.do_logtty && (level <= LOG_WARNING))
@@ -1039,7 +1046,6 @@ int vbi_proxy_msg_accept_connection( int listen_fd )
 static char * vbi_proxy_msg_resolve_symlinks( const char * p_dev_name )
 {
    struct stat stbuf;
-   char   link_name[MAXPATHLEN + 1];
    char * p_path;
    char * p_tmp;
    char * p_tmp2;
@@ -1054,6 +1060,7 @@ static char * vbi_proxy_msg_resolve_symlinks( const char * p_dev_name )
       res = lstat(p_path, &stbuf);
       if ((res == 0) && S_ISLNK(stbuf.st_mode))
       {
+         char link_name[stbuf.st_size + 1];
          name_len = readlink(p_path, link_name, sizeof(link_name));
          if ((name_len > 0) && (name_len < (int) sizeof(link_name)))
          {

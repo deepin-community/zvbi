@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: raw_decoder.c,v 1.24 2008/08/19 10:04:46 mschimek Exp $ */
+/* $Id: raw_decoder.c,v 1.24 2008-08-19 10:04:46 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-raw_decoder.cc,v 1.4 2008/03/01 07:35:48 mschimek Exp $ */
+/* $Id: test-raw_decoder.cc,v 1.4 2008-03-01 07:35:48 mschimek Exp $ */
 
 #undef NDEBUG
 

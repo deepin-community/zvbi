@@ -2,7 +2,7 @@
  *  libzvbi -- VBI decoding library
  *
  *  Copyright (C) 2000, 2001, 2002 Michael H. Schimek
- *  Copyright (C) 2000, 2001 Iñaki García Etxebarria
+ *  Copyright (C) 2000, 2001 IÃ±aki GarcÃ­a Etxebarria
  *
  *  Originally based on AleVT 1.5.1 by Edgar Toernig
  *
@@ -22,14 +22,12 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* Generated file, do not edit! */
-
 #ifndef __LIBZVBI_H__
 #define __LIBZVBI_H__
 
 #define VBI_VERSION_MAJOR 0
 #define VBI_VERSION_MINOR 2
-#define VBI_VERSION_MICRO 35
+#define VBI_VERSION_MICRO 43
 
 #ifdef __cplusplus
 extern "C" {

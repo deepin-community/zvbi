@@ -1,3 +1,320 @@
+2024-12-03 Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.43
+
+	* configure.ac: Add options to disable tests and examples.
+	                Move sincos function check to AC_CHECK_FUNCS.
+	                Check for Windows host_os.
+	                Check if we have winsock2.h.
+	                Remove generated files from check-in.
+	* contrib/ntsc-cc.c: Only use fd_set if needed.
+	* src/Makefile.am: Replace strptime implementation for Windows platforms.
+	* src/io: Rename to inout to prevent conflict with Window's io.h, and update for Windows builds.
+	* src/dvb_mux.c: Fix invalid array subscript in encode_stuffing.
+	* src/format.h, src/vbi.c: Fix UB in vbi_transp_colormap.
+	* src/idl_demux.c: Correct the behaviour of dummy byte removal.
+	* src/lang.c: Fix signed integer overflow in vbi_teletext_unicode.
+	* src/misc.h: Do not redefine strncpy for Windows platforms.
+	* src/page_table.c: Add fallbacks in case ffs is missing.
+	* src/pdc.c, examples/pdc2.c, test/test-pdc.h: Use _mkgmtime instead of timegm on Windows.
+	* src/pdc.c: Add wrappers for un/setenv for Windows.
+	             Use _POSIX_C_SOURCE.
+	* src/pdc2.c, test/date.c: Use localtime_s instead of localtime_r for Windows.
+	* src/pdc.h, examples/pdc2.c, test/proxy-test.c: Use __STDC_WANT_LIB_EXT1__ for Windows platforms.
+	* src/strptime.c: Add FFmpeg striptime definition.
+	* test/Makefile.am, examples/Makefile.am: Make testsuite available for Windows platforms.
+	* test/test-common.cc, test/test-hamm.cc: Define function mrand48 for Windows platforms.
+	* test/date.c: Convert Unix time to Windows system time.
+	* test/decode.c, test/test-pdc.cc, examples/pdc2.c: Use gmtime_s instead of gmtime_r for Windows platforms.
+	* test/*: Update and add new test files for Windows platforms.
+	* test_windows.sh: Add testing script for Windows platforms.
+
+2023-08-25 Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.42
+	
+	* configure.ac: Release 0.2.42.
+	* NEWS: Add 0.2.42 release info.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.42.
+	* src/libzvbi.h: Update version number macros.
+	* src/version.h: New version number.
+	* src/io-v4l.c: Fix truncated string compiler warning.
+	* daemon/proxyd.c: Remove warning 'warn_unused_result' for dup().
+	* src/proxy-msg.c: Remove warning 'warn_unused_result' for write().
+	* examples/wss.c: Remove warning 'warn_unused_result' for write().
+	* contrib/ntsc-cc.c: Remove warning 'warn_unused_result' for fread().
+	* src/packet.c: Apply patch to consider ERASE_PAGE flag with single page transmissions.
+	* src/export.c: Fix build warning for multiple param documentation sections.
+
+2023-02-13 Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.41
+	
+	* configure.ac: Release 0.2.41.
+	* NEWS: Add 0.2.41 release info.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.41.
+	* src/libzvbi.h: In libzvbi.h, remove #include version.h and replace with version number macros (Closes Issue #40).
+	* src/version.h: New version number.
+
+2023-02-07  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.40
+	
+	* configure.ac: Release 0.2.40.
+	* COPYING.md: Copyright year 2023.
+	* NEWS: Add 0.2.40 release info.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.40.
+	* README.md: Copyright year 2023.
+	* src/libzvbi.h: Remove generated file comment and version number macros, include version.h (Closes Issue #35).
+	* src/version.h: Fix version number (Closes Issue #34).
+
+2022-12-21  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.39
+	
+	* build-aux/autogen.sh: Prevent autogen.sh from running configure immediately after by default (Closes Issue #32).
+	* configure.ac: Release 0.2.39.
+	* contrib/atsc-cc.c, contrib/ntsc-cc.c: Fix indexing for info struct (Closes Issue #9).
+	* NEWS: Add 0.2.39 release info.
+	* po/ka.po, po/LINGUAS: Add Georgian language translation.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.39.
+	* README.md: Update documentation for running autogen.sh and configure separately.
+	* src/xds_demux.c: Fix indexing for subpacket (Closes Issue #9).
+	* test/test-hamm.cc: Fix narrowing conversion compiler warnings during testing (Closes Issue #31).
+
+2022-11-30  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+	
+	* Release 0.2.38
+	
+	* doc/Doxyfile: Removed - generated during build (Closes Issue #30).
+	* doc/Doxyfile.in: Ran doxygen -u to remove obsolete tags (Closes Issue #29).
+	* src/io-v4l.c: Replace deprecated function readdir_r with readdir (Closes Issue #23).
+	* src/xds_demux.c: Fix upper loop bound (Closes Issue #24).
+	* contrib/atsc-cc.c: Fix vbi_char text array size (Closes Issue #27).
+	                     Fix upper loop bound (Closes Issue #28).
+	                     Type cast to uint8_t in buf (Closes Issue #26).
+	* contrib/ntsc-cc.c: Fix upper loop bound (Closes Issue #25).
+	* configure.ac: Release 0.2.38.
+	* NEWS: Add 0.2.38 release info.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.38.
+
+2022-10-11  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+	
+	* Release 0.2.37
+	
+	* configure.ac: During cross-compile, include path to and link 
+	with X11 if available or set X_DISPLAY_MISSING=1 if not 
+	available (Closes Issue #21), release 0.2.37.
+	* src/libzvbi.h: Change encoding to UTF-8.
+	* src/misc.h: Change encoding to UTF-8.
+	* src/search.h: Change encoding to UTF-8.
+	* src/vbi.h: Change encoding to UTF-8.
+	* NEWS: Add 0.2.37 release info.
+	* po/*.po: Update Project-Id-Version.
+	* po/Makefile.in: Release 0.2.37.
+	* doc/Doxyfile: Release 0.2.37.
+
+2022-09-29  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* Release 0.2.36
+	
+	* NEWS: Add 0.2.36 release info.
+	* README.md: Release 0.2.36.
+	* COPYING.md: Update copyright info for po files, spacing.
+	* po/ChangeLog: Removed.
+	* po/de.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/en@boldquot.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/en@quot.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/es.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/fr.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/it.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/nl.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/pl.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+	* po/sv.po: Update Project-Id-Version, Report-Msgid-Bugs-To.
+
+2022-09-21  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* .gitignore: Unignore some test scripts.
+	* data/networks.dtd: New file.
+	* data/networks.xml: New file to use with network-table.pl.
+	* src/caption.c: Fix array bounds checks in xds_separator (Closes Issue #3 and Issue #16).
+	* src/network-table.h: Update networks table.
+
+2022-09-20  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* COPYING: Removed.
+	* COPYING.LIB: Removed.
+	* COPYING.md: Update COPYING to markdown format and include all license texts.
+
+2022-09-12  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* README: Removed.
+	* README.md: Update README to markdown format.
+
+2022-09-09  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* AUTHORS: Add new maintainer PGP key.
+
+2022-09-07  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* contrib/zvbi-atsc-cc.1: Escape hyphen characters in contrib man pages.
+	* contrib/zvbi-ntsc-cc.1: Escape hyphen characters in contrib man pages.
+	* daemon/Makefile.am: Change LIBZVBI_CHAINS_PATH to libzvbi-chains.so.0.
+	* daemon/proxyd.c: Fix spelling error in log message.
+	* src/proxy-client.c: Fix spelling error in log message.
+
+2022-09-06  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* contrib/atsc-cc.c: Fix incomplete file writes by flushing writes.
+	* src/caption.c: Fix XDS debug compile-time error (Closes Issue #17).
+	* src/proxy-msg.c: Declare link_name string later in the function when the size is known.
+	* test/test-packet-830.cc: Fix bug that was setting a pointer instead of a value.
+
+2022-09-02  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* .gitignore: Update with autogenerated files.
+	* autogen.sh: Use newer gnome autogen script, fix build issue.
+	* configure.ac: Add getopt_long to AC_CHECK_FUNCS.
+	* build-aux/autogen.sh: Use newer gnome autogen script.
+	* m4/autogen.sh: Removed.
+	* src/Makefile.am: Change configure.in to configure.ac.
+
+2022-08-30  Ileana Dumitrescu  <ileanadumitrescu95@gmail.com>
+
+	* .gitignore: New file.
+	* ABOUT-NLS: Link to GNU website.
+	* aclocal.m4: New file from aclocal.
+	* config.h.in: New file generated from configure.ac.
+	* configure.ac (AM_GNU_GETTEXT_VERSION): Bump to 0.21.
+	* configure.in: Replace with configure.ac.
+	* INSTALL: Text updates.
+	* Makefile.in: New file from automake.
+	* build-aux/*: New files after setting AC_CONFIG_AUX_DIR to build-aux.
+	* contrib/Makefile.in: New file generated by automake.
+	* daemon/Makefile.in: New file generated by automake.
+	* doc/Makefile.in: New file generated by automake.
+	* examples/Makefile.am: Change INCLUDES to AM_CPPFLAGS.
+	* examples/Makefile.in: New file generated by automake.
+	* m4/gettext.m4: Upgrade to gettext-0.21.
+	* m4/host-cpu-c-abi.m4: New file, from gettext-0.21.
+	* m4/iconv.m4: Upgrade to gettext-0.21.
+	* m4/intlmacosx.m4: New file, from gettext-0.21.
+	* m4/lib-ld.m4: Upgrade to gettext-0.21.
+	* m4/lib-link.m4: Upgrade to gettext-0.21.
+	* m4/lib-prefix.m4: Upgrade to gettext-0.21.
+	* m4/nls.m4: Upgrade to gettext-0.21.
+	* m4/po.m4: Upgrade to gettext-0.21.
+	* m4/progtest.m4: Upgrade to gettext-0.21.
+	* m4/Makefile.am (EXTRA_DIST): Add the new files.
+	* m4/Makefile.in: New file generated by automake.
+	* m4/aclocal-include.m4: Removed.
+	* m4/codeset.m4: Removed.
+	* m4/glibc2.m4: Removed.
+	* m4/glibc21.m4: Removed.
+	* m4/intdiv0.m4: Removed.
+	* m4/intl.m4: Removed.
+	* m4/intldir.m4: Removed.
+	* m4/intmax.m4: Removed.
+	* m4/inttypes-pri.m4: Removed.
+	* m4/inttypes_h.m4: Removed.
+	* m4/isc-posix.m4: Removed.
+	* m4/lcmessage.m4: Removed.
+	* m4/libtool.m4: New file from autoconf.
+	* m4/lock.m4: Removed.
+	* m4/longdouble.m4: Removed.
+	* m4/longlong.m4: Removed.
+	* m4/ltoptions.m4: New file from autoconf.
+	* m4/ltsugar.m4: New file from autoconf.
+	* m4/ltversion.m4: New file from autoconf.
+	* m4/lt~obsolete.m4: New file from autoconf.
+	* m4/printf-posix.m4: Removed.
+	* m4/size_max.m4: Removed.
+	* m4/stdint_h.m4: Removed.
+	* m4/uintmax_t.m4: Removed.
+	* m4/ulonglong.m4: Removed.
+	* m4/visibility.m4: Removed.
+	* m4/wchar_t.m4: Removed.
+	* m4/wint_t.m4: Removed.
+	* m4/xsize.m4: Removed.
+	* po/Changelog: New file.
+	* po/Makefile.in: New file using GNU gettext.
+	* po/Makefile.in.in: Update using gettext-0.21.
+	* po/Makevars: Update using gettext-0.21.
+	* po/Makevars.template: Removed.
+	* po/Rules-quot: Update using gettext-0.21.
+	* po/de.po: Update using gettext-0.21.
+	* po/en@boldquot.header: Update using gettext-0.21.
+	* po/en@boldquot.po: Update using gettext-0.21.
+	* po/en@quot.header: Update using gettext-0.21.
+	* po/en@quot.po: Update using gettext-0.21.
+	* po/es.po: Update using gettext-0.21.
+	* po/fr.po: Update using gettext-0.21.
+	* po/insert-header.sin: Update using gettext-0.21.
+	* po/it.po: Update using gettext-0.21.
+	* po/nl.po: Update using gettext-0.21.
+	* po/pl.po: Update using gettext-0.21.
+	* po/remove-potcdate.sin: Update using gettext-0.21.
+	* src/Makefile.in: New file generated by automake.
+	* src/dvb/Makefile.in: New file generated by automake.
+	* test/Makefile.in: New file generated by automake.
+
+2017-03-18    <mschimek@users.sf.net>
+
+	* test/test-dvb_mux.cc: Silence gcc 6 warnings, SF patch #16 by
+	  Pyro.
+
+2016-10-17    <mschimek@users.sf.net>
+
+	* test/test-pdc.h: Fixed operator equal, SF bug #202.
+
+2016-06-04    <mschimek@users.sf.net>
+
+	* src/wstfont2.xbm: Fixed the glyph for U+0111 Latin small letter
+	  d with stroke, which exceeded its bounding box, applying SF
+	  patch #18 by Stefan Pöschel. Also fixed the italicized glyphs for
+	  the same character, U+00A9 Copyright sign, U+00AE Registered sign,
+	  U+00B6 Pilcrow sign, U+00F0 Latin small letter eth, and U+0374
+	  Greek numeral sign.
+
+2016-02-08    <mschimek@users.sf.net>
+
+	* src/lang.c (vbi_teletext_composed_unicode): Bug fix, SF patch #17
+	  by Stefan Pöschel. Display at sign instead of asterisk if invoked
+	  by X/26 triplet 0x10 'G0 character without diacritical mark'.
+
+2014-02-18    <mschimek@users.sf.net>
+
+	* src/packet.c (parse_28_29): SF bug #198: Faulty logic in
+	  TTX Level 2.5, 3.5 DRCS download page parser.
+
+2013-12-20    <mschimek@users.sf.net>
+
+	* configure.in: Added a replacement for AC_PATH_XTRA when cross
+	  compiling. Disable check scripts when cross compiling. New pthread
+	  check for MinGW compatibility. Do not build the VBI proxy if
+	  we do not build the V4L interface.
+
+	* src/dvb_demux.c (decode_timestamp): Disabled check to work
+	  around invalid mark transmitted on Dantoto Racing found by
+	  Devrim Ayyildiz.
+
+	* src/caption.c (caption_command): SF bug #195: Mid-row codes
+	  are set-at spacing attributes. Backgr. Attr. codes ditto.
+
+	* contrib/zvbi-atsc-cc.1, contrib/atsc-cc.c: Added a stream
+	  relative timestamp option.
+
+	* contrib/atsc-cc.c (cc_format_row): Bug fix: Ignored background
+	  attribute codes and printed a zero byte in their place.
+	(cc_feed): Bug fix: Did not separate XDS data from CC
+	  channel 3 & 4.
+	(decode_cc_data): Bug fix: Crashed if no data on some frames.
+
 2013-08-28    <mschimek@users.sf.net>
 
 	* Release 0.2.35.
@@ -43,7 +360,7 @@
 	* src/export.c (vbi_export_mem):
 	(vbi_export_alloc): Const cast clarification.
 
-	* src/exp-gfx.c (ppm_export): Output buffer was misdeclared as const.
+	* src/exp-gfx.c (ppm_export): Temp buffer was misdeclared as const.
 
 	* src/conv.c (strndup_iconv_to_ucs2): Silence iconv mutable src string warning.
 

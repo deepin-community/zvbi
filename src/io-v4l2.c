@@ -20,14 +20,14 @@
  */
 
 static const char rcsid [] =
-"$Id: io-v4l2.c,v 1.37 2008/02/19 00:35:20 mschimek Exp $";
+"$Id: io-v4l2.c,v 1.37 2008-02-19 00:35:20 mschimek Exp $";
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
 
 #include "vbi.h"
-#include "io.h"
+#include "inout.h"
 
 #ifdef ENABLE_V4L2
 
@@ -39,7 +39,9 @@ static const char rcsid [] =
 #include <assert.h>
 #include <sys/time.h>		/* timeval */
 #include <sys/types.h>		/* fd_set */
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>		/* for (_)videodev2.h */
+#endif
 #include <asm/types.h>		/* for videodev2.h */
 #include <pthread.h>
 

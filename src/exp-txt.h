@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: exp-txt.h,v 1.9 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: exp-txt.h,v 1.9 2008-02-19 00:35:15 mschimek Exp $ */
 
 #ifndef EXP_TXT_H
 #define EXP_TXT_H

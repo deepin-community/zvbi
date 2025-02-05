@@ -1,0 +1,2 @@
+# Long line in license text
+zvbi source: very-long-line-length-in-source-file 756 > 512 [COPYING.md:*]

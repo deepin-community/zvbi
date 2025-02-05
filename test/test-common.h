@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-common.h,v 1.6 2009/03/04 21:48:11 mschimek Exp $ */
+/* $Id: test-common.h,v 1.6 2009-03-04 21:48:11 mschimek Exp $ */
 
 #include <string.h>
 #include <inttypes.h>

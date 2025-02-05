@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: network.h,v 1.2 2009/03/04 21:42:09 mschimek Exp $ */
+/* $Id: network.h,v 1.2 2009-03-04 21:42:09 mschimek Exp $ */
 
 #ifndef __ZVBI_NETWORK_H__
 #define __ZVBI_NETWORK_H__

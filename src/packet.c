@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: packet.c,v 1.32 2013/07/10 11:37:28 mschimek Exp $ */
+/* $Id: packet.c,v 1.34 2014-02-18 16:56:03 mschimek Exp $ */
 
 #include "site_def.h"
 
@@ -32,7 +32,9 @@
 #include <fcntl.h>
 #include <time.h>
 #include <errno.h>
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
+#endif
 
 #include "misc.h"
 #include "hamm.h"
@@ -2069,7 +2071,7 @@ parse_28_29(vbi_decoder *vbi, uint8_t *p,
 		coding = get_bits (&bs, 3); /* page coding ignored */
 
 		if (function != PAGE_FUNCTION_GDRCS
-		    || function != PAGE_FUNCTION_DRCS)
+		    && function != PAGE_FUNCTION_DRCS)
 			return FALSE;
 
 		if (cvtp->function == PAGE_FUNCTION_UNKNOWN) {
@@ -2245,14 +2247,14 @@ vbi_decode_teletext(vbi_decoder *vbi, uint8_t *buffer)
 		while ((curr = vbi->vt.current)) {
 			vtp = curr->page;
 
-			if (vtp->flags & C11_MAGAZINE_SERIAL) {
+			if (vtp->flags & C11_MAGAZINE_SERIAL && !(vtp->flags & C4_ERASE_PAGE)) {
 				if (vtp->pgno == pgno)
 					break;
 			} else {
 				curr = rvtp;
 				vtp = curr->page;
 
-				if ((vtp->pgno & 0xFF) == page)
+				if ((vtp->pgno & 0xFF) == page && !(vtp->flags & C4_ERASE_PAGE))
 					break;
 			}
 

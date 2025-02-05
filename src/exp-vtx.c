@@ -25,7 +25,7 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-/* $Id: exp-vtx.c,v 1.12 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: exp-vtx.c,v 1.12 2008-02-19 00:35:15 mschimek Exp $ */
 
 /* Disabled for now because this code is licensed under GPLv2+ and
    cannot be linked with the rest of libzvbi which is licensed under

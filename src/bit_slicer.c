@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: bit_slicer.c,v 1.16 2008/02/19 00:35:14 mschimek Exp $ */
+/* $Id: bit_slicer.c,v 1.16 2008-02-19 00:35:14 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

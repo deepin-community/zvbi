@@ -23,7 +23,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: tables.c,v 1.11 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: tables.c,v 1.11 2008-02-19 00:35:22 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

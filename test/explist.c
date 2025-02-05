@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: explist.c,v 1.13 2008/03/01 07:36:54 mschimek Exp $ */
+/* $Id: explist.c,v 1.13 2008-03-01 07:36:54 mschimek Exp $ */
 
 #undef NDEBUG
 

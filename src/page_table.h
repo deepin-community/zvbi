@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: page_table.h,v 1.5 2008/02/24 14:17:16 mschimek Exp $ */
+/* $Id: page_table.h,v 1.5 2008-02-24 14:17:16 mschimek Exp $ */
 
 /* Note this module is not an offical part of the library yet because
    it needs more testing and the interface may change. Use at your own

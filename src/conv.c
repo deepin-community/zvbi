@@ -19,14 +19,19 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: conv.c,v 1.10 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: conv.c,v 1.11 2013-08-28 14:45:43 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
 
 #include <errno.h>
+#ifdef HAVE_LANGINFO_H
 #include <langinfo.h>
+#endif
+#ifdef _WIN32
+#include <io.h>
+#endif
 
 #include "misc.h"
 #include "conv.h"
@@ -1235,8 +1240,10 @@ vbi_locale_codeset		(void)
 
 	dst_format = bind_textdomain_codeset (vbi_intl_domainname, NULL);
 
+#ifdef HAVE_LANGINFO_H
 	if (NULL == dst_format)
 		dst_format = nl_langinfo (CODESET);
+#endif
 
 	return dst_format; /* may be NULL */
 }

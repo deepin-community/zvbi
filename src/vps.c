@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: vps.c,v 1.9 2009/03/04 21:48:37 mschimek Exp $ */
+/* $Id: vps.c,v 1.9 2009-03-04 21:48:37 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

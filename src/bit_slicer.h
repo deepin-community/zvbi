@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: bit_slicer.h,v 1.11 2008/02/24 14:18:13 mschimek Exp $ */
+/* $Id: bit_slicer.h,v 1.11 2008-02-24 14:18:13 mschimek Exp $ */
 
 #ifndef __ZVBI_BIT_SLICER_H__
 #define __ZVBI_BIT_SLICER_H__

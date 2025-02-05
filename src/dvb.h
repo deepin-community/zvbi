@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: dvb.h,v 1.4 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: dvb.h,v 1.4 2008-02-19 00:35:15 mschimek Exp $ */
 
 #ifndef DVB_H
 #define DVB_H

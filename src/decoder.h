@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: decoder.h,v 1.11 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: decoder.h,v 1.11 2008-02-19 00:35:15 mschimek Exp $ */
 
 #ifndef DECODER_H
 #define DECODER_H

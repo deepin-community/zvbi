@@ -17,7 +17,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: packet-830.c,v 1.4 2013/07/10 11:37:18 mschimek Exp $ */
+/* $Id: packet-830.c,v 1.4 2013-07-10 11:37:18 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

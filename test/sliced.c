@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: sliced.c,v 1.19 2009/12/14 23:43:46 mschimek Exp $ */
+/* $Id: sliced.c,v 1.20 2013-08-28 14:45:28 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 
@@ -47,7 +47,7 @@
 
 #include "src/dvb_mux.h"
 #include "src/dvb_demux.h"
-#include "src/io.h"
+#include "src/inout.h"
 #include "src/io-sim.h"
 #include "src/raw_decoder.h"
 #include "src/vbi.h"

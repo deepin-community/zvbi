@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: ctest.c,v 1.2 2008/03/01 07:37:02 mschimek Exp $ */
+/* $Id: ctest.c,v 1.2 2008-03-01 07:37:02 mschimek Exp $ */
 
 #include "src/libzvbi.h"
 

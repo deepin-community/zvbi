@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: dvb_mux.h,v 1.11 2008/02/24 14:17:51 mschimek Exp $ */
+/* $Id: dvb_mux.h,v 1.11 2008-02-24 14:17:51 mschimek Exp $ */
 
 #ifndef __ZVBI_DVB_MUX_H__
 #define __ZVBI_DVB_MUX_H__

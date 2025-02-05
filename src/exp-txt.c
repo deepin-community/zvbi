@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: exp-txt.c,v 1.24 2013/07/02 02:32:06 mschimek Exp $ */
+/* $Id: exp-txt.c,v 1.24 2013-07-02 02:32:06 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

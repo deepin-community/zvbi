@@ -29,7 +29,7 @@
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/* $Id: ure.c,v 1.8 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: ure.c,v 1.9 2013-08-28 14:44:49 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

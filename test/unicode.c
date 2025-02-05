@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: unicode.c,v 1.13 2008/09/11 02:47:12 mschimek Exp $ */
+/* $Id: unicode.c,v 1.13 2008-09-11 02:47:12 mschimek Exp $ */
 
 #undef NDEBUG
 
@@ -34,7 +34,7 @@
 #include "src/misc.h"
 
 static void
-putwchar			(unsigned int		c)
+putwchar_local			(unsigned int		c)
 {
 	if (c < 0x80) {
 		putchar (c);
@@ -52,6 +52,9 @@ putwchar			(unsigned int		c)
 		putchar (0x80 | (c & 0x3F));
 	}
 }
+
+#undef putwchar
+#define putwchar putwchar_local
 
 static void
 putwstr				(const char *		s)

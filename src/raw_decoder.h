@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: raw_decoder.h,v 1.12 2008/02/19 00:35:21 mschimek Exp $ */
+/* $Id: raw_decoder.h,v 1.12 2008-02-19 00:35:21 mschimek Exp $ */
 
 #ifndef __ZVBI_RAW_DECODER_H__
 #define __ZVBI_RAW_DECODER_H__

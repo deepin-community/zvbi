@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-packet-830.cc,v 1.1 2009/03/04 21:48:20 mschimek Exp $ */
+/* $Id: test-packet-830.cc,v 1.1 2009-03-04 21:48:20 mschimek Exp $ */
 
 #undef NDEBUG
 
@@ -115,7 +115,7 @@ assert_decode_teletext_8301_cni	(unsigned int *		cni,
 	unsigned int cni2;
 
 	memcpy (buffer2, buffer, sizeof (buffer2));
-	memset_rand (cni, sizeof (cni));
+	memset_rand (cni, sizeof (*cni));
 	cni2 = *cni;
 
 	assert (TRUE == vbi_decode_teletext_8301_cni (cni, buffer));
@@ -351,6 +351,8 @@ main				(void)
 	memset_rand (buffer1, sizeof (buffer1));
 	t1 = ztime ("19820131T000000");
 
+#ifndef _WIN32
+	// _mkgmtime doesn't support dates before 1900
 	encode_teletext_8301_local_time	(buffer1, 0x00000, 0x000000, 0);
 	if (TIME_MIN < -2147483648.0) {
 		assert_decode_teletext_8301_local_time
@@ -359,6 +361,7 @@ main				(void)
 		/* Not representable as time_t. */
 		assert_decode_teletext_8301_local_time (buffer1, FALSE);
 	}
+#endif
 
 	/* EN 300 706 Table 18: "Reference point". */
 	encode_teletext_8301_local_time	(buffer1, 0x45000, 0x000000, 0);

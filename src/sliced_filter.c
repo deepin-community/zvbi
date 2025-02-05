@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: sliced_filter.c,v 1.6 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: sliced_filter.c,v 1.6 2008-02-19 00:35:22 mschimek Exp $ */
 
 /* XXX UNTESTED */
 

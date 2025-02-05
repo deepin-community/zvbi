@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: hamm.h,v 1.16 2013/07/10 11:37:13 mschimek Exp $ */
+/* $Id: hamm.h,v 1.16 2013-07-10 11:37:13 mschimek Exp $ */
 
 #ifndef __ZVBI_HAMM_H__
 #define __ZVBI_HAMM_H__

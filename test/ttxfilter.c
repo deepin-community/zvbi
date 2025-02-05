@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: ttxfilter.c,v 1.18 2008/03/01 07:35:40 mschimek Exp $ */
+/* $Id: ttxfilter.c,v 1.18 2008-03-01 07:35:40 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 

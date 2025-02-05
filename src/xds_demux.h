@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: xds_demux.h,v 1.11 2008/02/24 14:16:16 mschimek Exp $ */
+/* $Id: xds_demux.h,v 1.11 2008-02-24 14:16:16 mschimek Exp $ */
 
 #ifndef __ZVBI_XDS_DEMUX_H__
 #define __ZVBI_XDS_DEMUX_H__

@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: tables.h,v 1.10 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: tables.h,v 1.10 2008-02-19 00:35:22 mschimek Exp $ */
 
 #ifndef TABLES_H
 #define TABLES_H
