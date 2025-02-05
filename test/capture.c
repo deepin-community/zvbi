@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: capture.c,v 1.39 2008/08/19 10:06:52 mschimek Exp $ */
+/* $Id: capture.c,v 1.39 2008-08-19 10:06:52 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 

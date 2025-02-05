@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: intl-priv.h,v 1.6 2008/02/19 00:35:20 mschimek Exp $ */
+/* $Id: intl-priv.h,v 1.6 2008-02-19 00:35:20 mschimek Exp $ */
 
 #ifndef INTL_PRIV_H
 #define INTL_PRIV_H

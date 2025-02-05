@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-dvb_demux.cc,v 1.3 2008/03/01 07:36:09 mschimek Exp $ */
+/* $Id: test-dvb_demux.cc,v 1.3 2008-03-01 07:36:09 mschimek Exp $ */
 
 #undef NDEBUG
 

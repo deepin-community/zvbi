@@ -1,6 +1,6 @@
 /* Copyright (C) 2002 Gerd Knorr */
 
-/* $Id: x11font.c,v 1.5 2006/02/10 06:25:36 mschimek Exp $ */
+/* $Id: x11font.c,v 1.5 2006-02-10 06:25:36 mschimek Exp $ */
 
 #include "src/exp-gfx.c"
 

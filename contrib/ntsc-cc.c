@@ -32,7 +32,9 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <locale.h>
-#include <sys/ioctl.h>
+#ifdef HAVE_SYS_IOCTL_H
+#  include <sys/ioctl.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -102,7 +104,7 @@ static FILE *			xds_fp;
 //ccdecode
 const char    *ratings[] = {"(NOT RATED)","TV-Y","TV-Y7","TV-G","TV-PG","TV-14","TV-MA","(NOT RATED)"};
 int     rowdata[] = {11,-1,1,2,3,4,12,13,14,15,5,6,7,8,9,10};
-const char	*specialchar[] = {"®","°","½","¿","(TM)","¢","£","o/~ ","à"," ","è","â","ê","î","ô","û"};
+const char	*specialchar[] = {"Â®","Â°","Å“","Â¿","(TM)","Â¢","Â£","o/~ ","Ã "," ","Ã¨","Ã¢","Ãª","Ã®","Ã´","Ã»"};
 const char	*modes[]={"current","future","channel","miscellaneous","public service","reserved","invalid","invalid","invalid","invalid"};
 int	lastcode;
 int	ccmode=1;		//cc1 or cc2
@@ -1051,6 +1053,17 @@ open_v4l2_sliced		(const char *		dev_name)
 
 #endif /* !ENABLE_V4L2 */
 
+static void
+check_fread			(unsigned int		n_expected_items,
+				unsigned int 		n_actual_items)
+{
+	if (n_expected_items != n_actual_items) {
+		if (ferror (stdin))
+			fprintf (stderr, "Error reading stream\n");
+			exit (EXIT_FAILURE);
+	}
+}
+
 static ssize_t
 read_test_stream		(vbi_sliced *		sliced,
 				 int *			n_lines,
@@ -1075,6 +1088,7 @@ read_test_stream		(vbi_sliced *		sliced,
 
 	while (n_items-- > 0) {
 		int index;
+		unsigned int n_actual_items;
 
 		index = fgetc (stdin);
 		if (255 == index) {
@@ -1086,7 +1100,8 @@ read_test_stream		(vbi_sliced *		sliced,
 
 			/* Skip raw data. */
 			memset (buffer, 0, sizeof (buffer));
-			fread (buffer, 1, 22, stdin);
+			n_actual_items = fread (buffer, 1, 22, stdin);
+			check_fread (22, n_actual_items);
 			bytes_per_line = buffer[8] | (buffer[9] << 8);
 			count[0] = buffer[18] | (buffer[19] << 8);
 			count[1] = buffer[20] | (buffer[21] << 8);
@@ -1095,7 +1110,8 @@ read_test_stream		(vbi_sliced *		sliced,
 			p = malloc (bytes_per_frame);
 			assert (NULL != p);
 			/* fseek() works w/pipe? */
-			fread (p, 1, bytes_per_frame, stdin);
+			n_actual_items = fread (p, 1, bytes_per_frame, stdin);
+			check_fread (bytes_per_frame, n_actual_items);
 			free (p);
 			continue;
 		}
@@ -1111,27 +1127,33 @@ read_test_stream		(vbi_sliced *		sliced,
 		switch (index) {
 		case 0:
 			s->id = VBI_SLICED_TELETEXT_B;
-			fread (s->data, 1, 42, stdin);
+			n_actual_items = fread (s->data, 1, 42, stdin);
+			check_fread (42, n_actual_items);
 			break;
 		case 1:
 			s->id = VBI_SLICED_CAPTION_625; 
-			fread (s->data, 1, 2, stdin);
+			n_actual_items = fread (s->data, 1, 2, stdin);
+			check_fread (2, n_actual_items);
 			break; 
 		case 2:
 			s->id = VBI_SLICED_VPS;
-			fread (s->data, 1, 13, stdin);
+			n_actual_items = fread (s->data, 1, 13, stdin);
+			check_fread (13, n_actual_items);
 			break;
 		case 3:
 			s->id = VBI_SLICED_WSS_625; 
-			fread (s->data, 1, 2, stdin);
+			n_actual_items = fread (s->data, 1, 2, stdin);
+			check_fread (2, n_actual_items);
 			break;
 		case 4:
 			s->id = VBI_SLICED_WSS_CPR1204; 
-			fread (s->data, 1, 3, stdin);
+			n_actual_items = fread (s->data, 1, 3, stdin);
+			check_fread (3, n_actual_items);
 			break;
 		case 7:
 			s->id = VBI_SLICED_CAPTION_525; 
-			fread(s->data, 1, 2, stdin);
+			n_actual_items = fread (s->data, 1, 2, stdin);
+			check_fread (2, n_actual_items);
 			break;
 		default:
 			fprintf (stderr,
@@ -1157,11 +1179,12 @@ xds_filter_option		(const char *		optarg)
 
 	if (NULL == optarg
 	    || 0 == strcasecmp (optarg, "all")) {
-		unsigned int i;
+		unsigned int i, j;
 
-		for (i = 0; i < (N_ELEMENTS (info[0])
-				 * N_ELEMENTS (info[0][0])); ++i) {
-			info[0][0][i].print = TRUE;
+		for (i = 0; i < N_ELEMENTS (info[0]); ++i) {
+			for (j = 0; j < N_ELEMENTS (info[0][0]); ++j) {
+				info[0][i][j].print = TRUE;
+			}
 		}
 
 		return;
@@ -1327,7 +1350,11 @@ int main(int argc,char **argv)
    unsigned char buf[65536];
    int arg;
    int args=0;
+
+#ifndef HAVE_ZVBI
    fd_set rfds;
+#endif
+
    int x;
 	const char *device_file_name;
 	const char *cc_file_name[8];

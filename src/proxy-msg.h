@@ -21,12 +21,9 @@
  */
  
 /*
- *  $Id: proxy-msg.h,v 1.13 2008/02/19 00:35:21 mschimek Exp $
+ *  $Id: proxy-msg.h,v 1.13 2008-02-19 00:35:21 mschimek Exp $
  *
- *  $Log: proxy-msg.h,v $
- *  Revision 1.13  2008/02/19 00:35:21  mschimek
- *  *** empty log message ***
- *
+ *  $Log: not supported by cvs2svn $
  *  Revision 1.12  2007/11/27 18:31:07  mschimek
  *  Updated the FSF address in the copyright notice.
  *
@@ -68,7 +65,9 @@
 #ifndef PROXY_MSG_H
 #define PROXY_MSG_H
 
+#ifdef HAVE_SYSLOG_H
 #include <sys/syslog.h>
+#endif
 
 /* Public */
 

@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: sampling_par.c,v 1.11 2009/02/18 15:37:11 mschimek Exp $ */
+/* $Id: sampling_par.c,v 1.12 2013-08-28 14:45:00 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

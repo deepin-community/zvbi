@@ -2,18 +2,28 @@
 #export DH_VERBOSE=1
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
-export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed -ldl
+export DEB_LDFLAGS_MAINT_APPEND = -ldl
 
 export PVER=$(shell dpkg-parsechangelog --show-field version | cut -d"-" -f1)
 
 %:
 	dh $@
 
+override_dh_autoreconf:
+	./autogen.sh
+
 override_dh_auto_configure:
 	dh_auto_configure -- --enable-proxy
 
 override_dh_installdocs:
-	dh_installdocs -A README TODO NEWS AUTHORS
+	dh_installdocs -A README.md TODO NEWS AUTHORS
 
 override_dh_makeshlibs:
-	dh_makeshlibs -- -v$(PVER)
+	dh_makeshlibs -- -v$(PVER) -q
+
+execute_before_dh_clean:
+	find . -name Makefile.in -exec rm -f {} \;
+	rm -f m4/*.m4
+	rm -f config.h.in aclocal.m4 INSTALL
+	rm -f build-aux/compile build-aux/config.guess build-aux/config.sub build-aux/depcomp
+	rm -f build-aux/install-sh build-aux/ltmain.sh build-aux/test-driver build-aux/missing

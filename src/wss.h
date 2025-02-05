@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: wss.h,v 1.4 2008/02/19 00:35:23 mschimek Exp $ */
+/* $Id: wss.h,v 1.4 2008-02-19 00:35:23 mschimek Exp $ */
 
 extern void		vbi_decode_wss_625(vbi_decoder *vbi, uint8_t *buf, double time);
 extern void		vbi_decode_wss_cpr1204(vbi_decoder *vbi, uint8_t *buf);

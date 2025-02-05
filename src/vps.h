@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: vps.h,v 1.9 2009/03/04 21:48:35 mschimek Exp $ */
+/* $Id: vps.h,v 1.9 2009-03-04 21:48:35 mschimek Exp $ */
 
 #ifndef __ZVBI_VPS_H__
 #define __ZVBI_VPS_H__

@@ -17,7 +17,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: pdc.h,v 1.6 2009/03/23 01:30:19 mschimek Exp $ */
+/* $Id: pdc.h,v 1.6 2009-03-23 01:30:19 mschimek Exp $ */
 
 #ifndef __ZVBI_PDC_H__
 #define __ZVBI_PDC_H__
@@ -33,6 +33,10 @@
 VBI_BEGIN_DECLS
 
 /* Public */
+
+#ifdef _WIN32
+#define __STDC_WANT_LIB_EXT1__ 1
+#endif
 
 #include <time.h>		/* time_t */
 

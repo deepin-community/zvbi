@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: glyph.c,v 1.11 2008/03/01 07:36:46 mschimek Exp $ */
+/* $Id: glyph.c,v 1.11 2008-03-01 07:36:46 mschimek Exp $ */
 
 #undef NDEBUG
 
@@ -66,7 +66,7 @@ new_page(void)
 }
 
 static void
-putwchar(int c)
+putwchar_local(int c)
 {
 	if (c == '\n') {
 		cx = 0;
@@ -79,6 +79,9 @@ putwchar(int c)
 			cx++;
 	}
 }
+
+#undef putwchar
+#define putwchar putwchar_local
 
 static void
 putwstr(const char *s)

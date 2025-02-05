@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-vps.cc,v 1.1 2009/03/04 21:48:17 mschimek Exp $ */
+/* $Id: test-vps.cc,v 1.1 2009-03-04 21:48:17 mschimek Exp $ */
 
 #undef NDEBUG
 

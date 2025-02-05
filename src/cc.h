@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: cc.h,v 1.9 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: cc.h,v 1.9 2008-02-19 00:35:15 mschimek Exp $ */
 
 #ifndef CC_H
 #define CC_H

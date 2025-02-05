@@ -25,7 +25,7 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* $Id: wss.c,v 1.11 2008/02/19 00:52:04 mschimek Exp $ */
+/* $Id: wss.c,v 1.11 2008-02-19 00:52:04 mschimek Exp $ */
 
 /* This example shows how to extract Wide Screen Signalling data
    (EN 300 294) from video images. The signal is transmitted on the
@@ -160,7 +160,8 @@ process_image			(const void *		p)
 	n_lines = vbi_raw_decode (&rd, (uint8_t *) p, sliced);
 	if (0 /* test */) {
 		/* Error ignored. */
-		write (STDOUT_FILENO, p, rd.bytes_per_line);
+		if (write (STDOUT_FILENO, p, rd.bytes_per_line) == -1)
+			fprintf(stderr, "Failed to write to file\n");
 	} else if (n_lines > 0) {
 		assert (VBI_SLICED_WSS_625 == sliced[0].id);
 		assert (1 == n_lines);

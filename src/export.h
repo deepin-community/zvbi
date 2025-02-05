@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: export.h,v 1.18 2008/02/24 14:17:37 mschimek Exp $ */
+/* $Id: export.h,v 1.18 2008-02-24 14:17:37 mschimek Exp $ */
 
 #ifndef EXPORT_H
 #define EXPORT_H

@@ -25,7 +25,7 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* $Id: pdc2.c,v 1.1 2009/03/23 01:30:39 mschimek Exp $ */
+/* $Id: pdc2.c,v 1.1 2009-03-23 01:30:39 mschimek Exp $ */
 
 /* This example shows how to receive and decode VPS/PDC Program IDs.
    For simplicity channel change functions have been omitted and not
@@ -58,6 +58,9 @@
 #include <string.h>
 #include <float.h>
 #include <math.h>
+#ifdef _WIN32
+#define __STDC_WANT_LIB_EXT1__ 1
+#endif
 #include <time.h>
 #include <locale.h>
 #include <ctype.h>
@@ -68,6 +71,11 @@
 #include <assert.h>
 
 #include <libzvbi.h>
+
+#ifdef _WIN32
+#include "src/strptime.h"
+#define timegm _mkgmtime
+#endif
 
 #ifndef N_ELEMENTS
 #  define N_ELEMENTS(array) (sizeof (array) / sizeof (*(array)))
@@ -243,13 +251,21 @@ print_time			(time_t			time)
 	struct tm tm;
 
 	memset (&tm, 0, sizeof (tm));
+#ifdef _WIN32
+	localtime_s (&tm, &time);
+#else
 	localtime_r (&time, &tm);
+#endif
 	strftime (buffer, sizeof (buffer),
 		  "%Y-%m-%d %H:%M:%S %Z = ", &tm);
 	fputs (buffer, stdout);
 
 	memset (&tm, 0, sizeof (tm));
+#ifdef _WIN32
+	gmtime_s (&tm, &time);
+#else
 	gmtime_r (&time, &tm);
+#endif
 	strftime (buffer, sizeof (buffer),
 		  "%Y-%m-%d %H:%M:%S UTC", &tm);
 	puts (buffer);
@@ -297,7 +313,11 @@ msg				(const char *		templ,
 		struct tm tm;
 
 		memset (&tm, 0, sizeof (tm));
+#ifdef _WIN32
+		localtime_s (&tm, &audience_time);
+#else
 		localtime_r (&audience_time, &tm);
+#endif
 		strftime (buffer, sizeof (buffer), "%Y%m%dT%H%M%S ", &tm);
 		fputs (buffer, stdout);
 	}
@@ -1149,7 +1169,7 @@ parse_test_file_line		(time_t *		timestamp,
 	memset (&tm, 0, sizeof (tm));
 	tm.tm_isdst = -1; /* unknown */
 
-	s = strptime (s, "%n%Y%m%dT%H%M%S", &tm);
+	s = strptime (s, "%Y%m%dT%H%M%S", &tm);
 	detail = "date field";
 	if (NULL == s)
 		goto invalid;
@@ -1623,7 +1643,11 @@ standby_loop			(void)
 			struct tm tm;
 
 			memset (&tm, 0, sizeof (tm));
+#ifdef _WIN32
+			localtime_s (&tm, &first_scan);
+#else
 			localtime_r (&first_scan, &tm);
+#endif
 			strftime (buffer, sizeof (buffer),
 				  "%Y-%m-%d %H:%M:%S %Z", &tm);
 
@@ -1725,8 +1749,13 @@ add_program_to_schedule		(const struct tm *	start_tm,
 
 	/* Normalize day and month. */
 	pil_time = mktime (&tm);
+#ifdef _WIN32
+	if ((time_t) -1 == pil_time
+	    || 0 != localtime_s (&tm, &pil_time)) {
+#else
 	if ((time_t) -1 == pil_time
 	    || NULL == localtime_r (&pil_time, &tm)) {
+#endif
 		fprintf (stderr, "Cannot determine PIL month/day.\n");
 		exit (EXIT_FAILURE);
 	}

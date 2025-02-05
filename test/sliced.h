@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: sliced.h,v 1.14 2008/03/01 07:37:24 mschimek Exp $ */
+/* $Id: sliced.h,v 1.14 2008-03-01 07:37:24 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 

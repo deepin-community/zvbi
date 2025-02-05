@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: export.c,v 1.29 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: export.c,v 1.30 2013-08-28 14:45:33 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -35,6 +35,10 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <iconv.h>
+
+#ifdef _WIN32
+#include <io.h>
+#endif
 
 #include "export.h"
 #include "conv.h"
@@ -520,7 +524,7 @@ option_string(vbi_export *e, const char *s2)
  * 
  * Creates a new export module instance to export a vbi_page in
  * the respective module format. As a special service you can
- * initialize options by appending to the @param keyword like this:
+ * initialize options by appending to the \@param keyword like this:
  * 
  * @code
  * vbi_export_new ("keyword; quality=75.5, comment=\"example text\"");

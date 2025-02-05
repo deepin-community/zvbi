@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: xds_demux.c,v 1.11 2008/02/19 00:35:23 mschimek Exp $ */
+/* $Id: xds_demux.c,v 1.11 2008-02-19 00:35:23 mschimek Exp $ */
 
 #include "site_def.h"
 
@@ -819,14 +819,17 @@ void
 vbi_xds_demux_reset		(vbi_xds_demux *	xd)
 {
 	unsigned int n;
-	unsigned int i;
+	unsigned int i, j;
 
 	assert (NULL != xd);
 
-	n = N_ELEMENTS (xd->subpacket) * N_ELEMENTS (xd->subpacket[0]);
+	n = N_ELEMENTS (xd->subpacket[0]);
 
-	for (i = 0; i < n; ++i)
-		xd->subpacket[0][i].count = 0;
+	for (i = 0; i < N_ELEMENTS (xd->subpacket); ++i) {
+		for (j = 0; j < N_ELEMENTS (xd->subpacket[0]); ++j) {
+			xd->subpacket[i][j].count = 0;
+		}
+	}
 
 	xd->curr_sp = NULL;
 }

@@ -38,7 +38,7 @@
  *    by Tom Zoerner.
  *
  *
- *  $Log: proxyd.c,v $
+ *  $Log: not supported by cvs2svn $
  *  Revision 1.19  2008/07/26 06:22:24  mschimek
  *  Changed the license to GPLv2+ with Tom's permission.
  *
@@ -77,7 +77,7 @@
  *
  */
 
-static const char rcsid[] = "$Id: proxyd.c,v 1.19 2008/07/26 06:22:24 mschimek Exp $";
+static const char rcsid[] = "$Id: proxyd.c,v 1.20 2013-08-28 14:45:58 mschimek Exp $";
 
 #include "config.h"
 
@@ -91,7 +91,9 @@ static const char rcsid[] = "$Id: proxyd.c,v 1.19 2008/07/26 06:22:24 mschimek E
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
+#endif
 #include <fcntl.h>
 #include <errno.h>
 #include <signal.h>
@@ -99,7 +101,7 @@ static const char rcsid[] = "$Id: proxyd.c,v 1.19 2008/07/26 06:22:24 mschimek E
 #include <pthread.h>
 
 #include "src/vbi.h"
-#include "src/io.h"
+#include "src/inout.h"
 #include "src/bcd.h"
 #include "src/proxy-msg.h"
 
@@ -852,7 +854,7 @@ static void vbi_proxyd_stop_acq_thread( PROXY_DEV * p_proxy_dev )
       {
          ret = pthread_join(p_proxy_dev->thread_id, NULL);
          if (ret == 0)
-            dprintf(DBG_MSG, "stop_acq_thread: acq thread killed sucessfully\n");
+            dprintf(DBG_MSG, "stop_acq_thread: acq thread killed successfully\n");
          else
             dprintf(DBG_MSG, "stop_acq_thread: pthread_join failed: %d (%s)\n", errno, strerror(errno));
       }
@@ -2705,7 +2707,8 @@ static void vbi_proxyd_init( void )
          close(1);
          open("/dev/null", O_WRONLY, 0);
          close(2);
-         dup(1);
+         if (dup(1) == -1)
+             exit(1);
 
          setsid();
       }

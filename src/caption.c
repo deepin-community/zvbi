@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: caption.c,v 1.29 2009/02/16 13:41:51 mschimek Exp $ */
+/* $Id: caption.c,v 1.30 2013-12-20 16:31:49 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -73,8 +73,8 @@ static const char *
 language[8] = {
 	"Unknown",
 	"English",
-	"Español",
-	"Français",
+	"Espaï¿½ol",
+	"Franï¿½ais",
 	"Deutsch",
 	"Italiano",
 	"Other",
@@ -588,6 +588,9 @@ xds_separator(vbi_decoder *vbi, uint8_t *buf)
 	int c1 = vbi_unpar8 (buf[0]);
 	int c2 = vbi_unpar8 (buf[1]);
 	unsigned int class, type;
+	
+	// This index variable is only used by the for loop in XDS_SEP_DUMP
+	XDS_SEP_DUMP( int i; )
 
 	XDS_SEP_DEBUG(printf("XDS %02x %02x\n", buf[0], buf[1]));
 
@@ -607,8 +610,8 @@ xds_separator(vbi_decoder *vbi, uint8_t *buf)
 	case 1 ... 14:
 		class = (c1 - 1) >> 1;
 
-		if (class > elements(cc->sub_packet)
-		    || c2 > (int) elements(cc->sub_packet[0])) {
+		if (class >= elements(cc->sub_packet)
+		    || c2 >= (int) elements(cc->sub_packet[0])) {
 			XDS_SEP_DEBUG(printf("XDS ignore packet %d/0x%02x\n", class, c2));
 			cc->curr_sp = NULL;
 			return;
@@ -854,6 +857,15 @@ put_char(struct caption *cc, cc_channel *ch, vbi_char c)
 		word_break(cc, ch, 1);
 }
 
+static void
+put_char_space(struct caption *cc, cc_channel *ch)
+{
+	vbi_char c = ch->attr;
+
+	c.unicode = 0x0020;
+	put_char (cc, ch, c);
+}
+
 static inline cc_channel *
 switch_channel(struct caption *cc, cc_channel *ch, int new_chan)
 {
@@ -962,10 +974,14 @@ caption_command(vbi_decoder *vbi, struct caption *cc,
 	}
 
 	switch (c1) {
-	case 0:		/* Optional Attributes		001 c000  010 xxxt */
-// not verified
+	case 0:		/* Backgr. Attr. Codes -- 001 c000  010 xxxt */
+		/* EIA 608-B Section 6.2. */
 		ch->attr.opacity = (c2 & 1) ? VBI_SEMI_TRANSPARENT : VBI_OPAQUE;
 		ch->attr.background = palette_mapping[(c2 >> 1) & 7];
+
+		/* This is a set-at spacing attribute. */
+		put_char_space(cc, ch);
+
 		return;
 
 	case 1:
@@ -989,7 +1005,6 @@ caption_command(vbi_decoder *vbi, struct caption *cc,
 				put_char(cc, ch, c);
 			}
 		} else {		/* Midrow Codes		001 c001  010 xxxu */
-// not verified
 			ch->attr.flash = FALSE;
 			ch->attr.underline = c2 & 1;
 
@@ -1002,6 +1017,11 @@ caption_command(vbi_decoder *vbi, struct caption *cc,
 				ch->attr.italic = TRUE;
 				ch->attr.foreground = VBI_WHITE;
 			}
+
+			/* 47 CFR 15.119 (h)(1)(i), EIA 608-B Section
+			   6.2: Mid-Row codes, FON, BT, FA and FAU are
+			   set-at spacing attributes. */
+			put_char_space(cc, ch);
 		}
 
 		return;

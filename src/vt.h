@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: vt.h,v 1.13 2008/03/01 07:37:35 mschimek Exp $ */
+/* $Id: vt.h,v 1.13 2008-03-01 07:37:35 mschimek Exp $ */
 
 #ifndef VT_H
 #define VT_H

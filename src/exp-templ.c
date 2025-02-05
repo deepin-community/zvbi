@@ -2,7 +2,7 @@
  *  Template for export modules
  */
 
-/* $Id: exp-templ.c,v 1.10 2007/11/27 18:26:32 mschimek Exp $ */
+/* $Id: exp-templ.c,v 1.10 2007-11-27 18:26:32 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

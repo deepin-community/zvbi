@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: proxy-client.h,v 1.5 2008/02/19 00:35:21 mschimek Exp $ */
+/* $Id: proxy-client.h,v 1.5 2008-02-19 00:35:21 mschimek Exp $ */
 
 #ifndef PROXY_CLIENT_H
 #define PROXY_CLIENT_H

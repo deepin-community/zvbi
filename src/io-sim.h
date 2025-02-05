@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: io-sim.h,v 1.10 2008/02/19 00:35:20 mschimek Exp $ */
+/* $Id: io-sim.h,v 1.11 2013-08-28 14:45:23 mschimek Exp $ */
 
 #ifndef __ZVBI_IO_SIM_H__
 #define __ZVBI_IO_SIM_H__
@@ -27,7 +27,7 @@
 #include "macros.h"
 #include "version.h"
 #include "sampling_par.h"
-#include "io.h"
+#include "inout.h"
 
 #if 3 == VBI_VERSION_MINOR
 #  include "aspect_ratio.h"

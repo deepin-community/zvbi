@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: exp-gfx.c,v 1.18 2013/07/02 04:04:14 mschimek Exp $ */
+/* $Id: exp-gfx.c,v 1.19 2013-08-28 14:45:38 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

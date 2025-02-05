@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: test-common.cc,v 1.7 2009/03/04 21:48:14 mschimek Exp $ */
+/* $Id: test-common.cc,v 1.7 2009-03-04 21:48:14 mschimek Exp $ */
 
 #undef NDEBUG
 
@@ -32,6 +32,12 @@
 #include "src/misc.h"
 #include "test-common.h"
 #include "src/version.h"
+
+#ifdef _WIN32
+long int mrand48(void) {
+    return rand() > RAND_MAX / 2 ? rand() : -rand();
+}
+#endif
 
 void *
 memset_rand			(void *			dst,

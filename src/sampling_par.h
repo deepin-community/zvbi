@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: sampling_par.h,v 1.9 2008/02/24 14:17:06 mschimek Exp $ */
+/* $Id: sampling_par.h,v 1.9 2008-02-24 14:17:06 mschimek Exp $ */
 
 #ifndef __SAMPLING_PAR_H__
 #define __SAMPLING_PAR_H__

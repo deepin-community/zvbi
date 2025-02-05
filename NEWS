@@ -1,3 +1,56 @@
+libzvbi 0.2.43, 2024-12-03
+--------------------------
+Fix building and enable testing for Windows platforms.
+
+Fix building for musl.
+
+Add options to disable tests and examples.
+
+Fix for static declaration of ‘sincos’ follows non-static declaration.
+
+libzvbi 0.2.42, 2023-08-25
+--------------------------
+Fix several compiler warnings.
+
+Apply patch to consider ERASE_PAGE flag with single page transmissions.
+
+libzvbi 0.2.41, 2023-02-13
+--------------------------
+In libzvbi.h, remove include version.h to fix include issue.
+
+libzvbi 0.2.40, 2023-02-07
+--------------------------
+Update version number macros.
+
+New copyright year.
+
+libzvbi 0.2.39, 2022-12-21
+--------------------------
+Updates to remove compiler warnings during tests.
+
+Allow autogen.sh and configure to run separately by default.
+
+Add Georgian language translation po files.
+
+libzvbi 0.2.38, 2022-11-30
+--------------------------
+Updates to remove compiler and Doxygen warnings.
+
+libzvbi 0.2.37, 2022-10-11
+--------------------------
+Fix cross-compile issues from autotools updates.
+
+Update header files to UTF-8 encoding.
+
+libzvbi 0.2.36, 2022-09-29
+--------------------------
+Update new maintainer and repository information after moving
+the project to github.
+
+Upgrade build system to new autotools versions.
+
+Apply simple patches from SourceForge and debian.
+
 libzvbi 0.2.35, 2013-08-28
 --------------------------
 Some corrections to allow compilation with clang/LLVM and uClibc,

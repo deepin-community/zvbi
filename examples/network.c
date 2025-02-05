@@ -25,7 +25,7 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* $Id: network.c,v 1.7 2009/03/23 01:30:22 mschimek Exp $ */
+/* $Id: network.c,v 1.8 2013-08-28 14:45:53 mschimek Exp $ */
 
 /* This example shows how to identify a network from data transmitted
    in XDS packets, Teletext packet 8/30 format 1 and 2, and VPS packets.

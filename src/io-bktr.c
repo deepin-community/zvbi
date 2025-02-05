@@ -20,14 +20,14 @@
  */
 
 static const char rcsid [] =
-"$Id: io-bktr.c,v 1.17 2008/02/19 00:35:20 mschimek Exp $";
+"$Id: io-bktr.c,v 1.17 2008-02-19 00:35:20 mschimek Exp $";
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
 
 #include "vbi.h"
-#include "io.h"
+#include "inout.h"
 
 #define printv(format, args...)						\
 do {									\

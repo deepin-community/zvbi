@@ -20,7 +20,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: osc.c,v 1.35 2008/03/01 07:36:41 mschimek Exp $ */
+/* $Id: osc.c,v 1.35 2008-03-01 07:36:41 mschimek Exp $ */
 
 #undef NDEBUG
 
@@ -38,7 +38,7 @@
 #include <getopt.h>
 #endif
 
-#include "src/io.h"
+#include "src/inout.h"
 #include "src/decoder.h"
 #include "src/misc.h"
 #include "src/hamm.h"

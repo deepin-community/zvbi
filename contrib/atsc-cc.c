@@ -45,6 +45,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -583,6 +584,8 @@ struct caption_recorder {
 	const char *			option_xds_output_file_name;
 
 	vbi_bool			option_caption_timestamps;
+	vbi_bool			option_timestamps_rel;
+	vbi_bool			option_ucla_prefix;
 
 	enum caption_format		option_caption_format;
 
@@ -898,8 +901,12 @@ struct program {
 	const char *			option_minicut_dir_name;
 
 	struct timeval			now;
+	struct timeval			rel;
 
+	int64_t				first_pts;
 	int64_t				first_dts;
+
+	int64_t				cc_pts;
 
 	struct ts_decoder		tsd;
 
@@ -1380,8 +1387,8 @@ open_minicut_file		(struct program *	pr,
 				 file_name, i, extension);
 		}
 
-		fd = open64 (buf, (O_CREAT | O_EXCL |
-				   O_LARGEFILE | O_WRONLY), 0666);
+		fd = open (buf, (O_CREAT | O_EXCL |
+				 O_LARGEFILE | O_WRONLY), 0666);
 		if (fd >= 0) {
 			fp = fdopen (fd, "w");
 			if (NULL == fp)
@@ -1662,25 +1669,31 @@ cr_put_attr			(struct caption_recorder *cr,
 static void
 cr_timestamp			(struct caption_recorder *cr,
 				 struct tm *		tm,
-				 time_t			t)
+				 struct timeval *	tv,
+				 int			year_offs,
+				 vbi_bool		print_msec)
 {
 	char time_str[32];
-
-	if (!cr->option_caption_timestamps)
-		return;
+	const char *format;
 
 	if (tm->tm_mday <= 0) {
-		if (NULL == gmtime_r (&t, tm)) {
+		time_t sec = tv->tv_sec;
+
+		if (NULL == gmtime_r (&sec, tm)) {
 			/* Should not happen. */
 			error_exit ("System time invalid.\n");
 		}
 	}
-		
-	snprintf (time_str, sizeof (time_str),
-		  "%04u%02u%02u%02u%02u%02u|",
-		  tm->tm_year + 1900, tm->tm_mon + 1,
+
+	format = "%04u%02u%02u%02u%02u%02u|";
+	if (print_msec)
+		format = "%04u%02u%02u%02u%02u%02u.%03u|";
+
+	snprintf (time_str, sizeof (time_str), format,
+		  tm->tm_year + year_offs, tm->tm_mon + 1,
 		  tm->tm_mday, tm->tm_hour,
-		  tm->tm_min, tm->tm_sec);
+		  tm->tm_min, tm->tm_sec,
+		  tv->tv_usec / 1000);
 
 	cr_puts (cr, time_str);
 }
@@ -1734,9 +1747,35 @@ cr_minicut			(struct caption_recorder *cr,
 }
 
 static void
+cr_stream_time			(struct program *	pr,
+				 struct timeval *	tv,
+				 int64_t		pts)
+{
+	int64_t long_pts = pts;
+	int64_t usec;
+
+	if (pr->first_pts >= ((int64_t) 3 << 32)
+	    && pts < ((int64_t) 1 << 32))
+		long_pts += (int64_t) 1 << 33;
+
+	long_pts -= pr->first_pts;
+
+	tv->tv_sec = long_pts / 90000 + pr->rel.tv_sec;
+
+	usec = long_pts % 90000 * 100 / 9 + pr->rel.tv_usec;
+	if (usec > 1000000) {
+		tv->tv_sec += usec / 1000000;
+		usec %= 1000000;
+	}
+
+	tv->tv_usec = usec;
+}
+
+static void
 cr_new_line			(struct caption_recorder *cr,
 				 struct cc_timestamp *	ts,
 				 vbi_pgno		channel,
+				 enum cc_mode		mode,
 				 const vbi_char		text[42],
 				 unsigned int		length)
 {
@@ -1809,13 +1848,80 @@ cr_new_line			(struct caption_recorder *cr,
 		if (0 != separator)
 			cr_putuc (cr, separator);
 	} else {
-		struct tm tm;
-		vbi_char prev_char;
-		unsigned int column;
+		struct program *pr = PARENT (cr, struct program, cr);
+		struct timeval tv;
+ 		struct tm tm;
+		int year_offs;
+ 		vbi_char prev_char;
+ 		unsigned int column;
 
-		tm.tm_mday = 0;
-		cr_minicut (cr, &tm, (time_t) ts->sys.tv_sec, channel);
-		cr_timestamp (cr, &tm, (time_t) ts->sys.tv_sec);
+		tv = ts->sys;
+		year_offs = 1900;
+
+		if (cr->option_timestamps_rel) {
+			cr_stream_time (pr, &tv, ts->pts);
+			if (0 == pr->rel.tv_sec
+			    && 0 == pr->rel.tv_usec) {
+				/* tv.tv_sec is relative to 1970-01-01,
+				   and tm.tm_year to 1900. */
+				year_offs = -69;
+			}
+		}
+
+		tm.tm_mday = 0; /* not valid */
+
+		cr_minicut (cr, &tm, (time_t) tv.tv_sec, channel);
+
+		if (cr->option_caption_timestamps
+		    || cr->option_ucla_prefix) {
+			cr_timestamp (cr, &tm, &tv, year_offs,
+				      /* print_msec */ cr->option_ucla_prefix);
+		}
+
+		if (cr->option_ucla_prefix) {
+			/* Format (borrowed from ccextractor 0.66):
+			   YYYYMMDDHHMMSS.MMM|YYYYMMDDHHMMSS.MMM|CCn|mode|text
+			   - Roll-Up, Paint-On, Text mode: t1 = capture/
+			     presentation time of first character, t2 =
+			     c/p time of carriage return code, rounded
+			     down to one millisecond
+			     Pop-On mode: t1 = t2 = c/p time of Pop-On code
+			   - caption channel CC1 ... CC8
+			   - caption mode RU2, POP, PAI, TXT (we do not
+			     distinguish btw RU2, RU3, RU4)
+			 */
+
+			if (cr->option_timestamps_rel) {
+				if (CC_MODE_POP_ON != mode)
+					cr_stream_time (pr, &tv, pr->cc_pts);
+			} else {
+				tv = pr->now;
+			}
+
+			tm.tm_mday = 0; /* not valid */
+			cr_timestamp (cr, &tm, &tv, year_offs,
+				      /* print_msec */ cr->option_ucla_prefix);
+
+			cr_puts (cr, "CC");
+			cr_putuc (cr, '0' + channel);
+
+			switch (mode) {
+			case CC_MODE_UNKNOWN:
+				/* Shouldn't happen. Fall through. */
+			case CC_MODE_ROLL_UP:
+				cr_puts (cr, "|RU2|");
+				break;
+			case CC_MODE_POP_ON:
+				cr_puts (cr, "|POP|");
+				break;
+			case CC_MODE_PAINT_ON:
+				cr_puts (cr, "|PAI|");
+				break;
+			case CC_MODE_TEXT:
+				cr_puts (cr, "|TXT|");
+				break;
+			}
+		}
 
 		vbi_char_clear_attr (&prev_char, -1);
 		prev_char.foreground = -1;
@@ -1848,6 +1954,7 @@ cr_new_line			(struct caption_recorder *cr,
 				      cr->ucs_buffer,
 				      cr->ucs_buffer_length,
 				      /* repl_char */ '?');
+		fflush(fp);
 	}
 }
 
@@ -2221,7 +2328,7 @@ cc_format_row			(struct cc_decoder *	cd,
 			}
 
 			continue;
-		} else if (c < 0x1040) {
+		} else if (c < 0x1020) {
 			if (padding
 			    && VBI_TRANSPARENT_SPACE == cp[-1].opacity) {
 				/* Prepend a space with the same
@@ -2247,6 +2354,22 @@ cc_format_row			(struct cc_decoder *	cd,
 			} else {
 				ac.unicode = vbi_caption_unicode
 					(c, to_upper);
+			}
+		} else if (c < 0x1040) {
+			unsigned int color;
+
+			/* Backgr. Attr. Codes -- 001 c000  010 xxxt */
+			/* EIA 608-B Section 6.2. */
+
+			/* This is a set-at spacing attribute. */
+
+			color = (c >> 1) & 7;
+			ac.background = cc_color_map[color];
+
+			if (c & 0x0001) {
+				ac.opacity = VBI_SEMI_TRANSPARENT;
+			} else {
+				ac.opacity = VBI_OPAQUE;
 			}
 		} else if (c < 0x1120) {
 			/* Preamble Address Codes -- 001 crrr  1ri xxxu */
@@ -2446,7 +2569,7 @@ cc_stream_event			(struct cc_decoder *	cd,
 	channel = cc_channel_num (cd, ch);
 
 	for (row = first_row; row <= last_row; ++row) {
-		struct vbi_char text[36];
+		struct vbi_char text[42];
 		unsigned int end;
 
 		cc_format_row (cd, text, ch,
@@ -2467,7 +2590,8 @@ cc_stream_event			(struct cc_decoder *	cd,
 
 			pr = PARENT (cd, struct program, cr.cc);
 			cr_new_line (&pr->cr, &ch->timestamp_c0,
-				     channel, text, /* length */ 32);
+				     channel, ch->mode,
+				     text, /* length */ 32);
 		}
 	}
 
@@ -3700,7 +3824,7 @@ cc_feed				(struct cc_decoder *	cd,
 			}
 		}
 
-		{
+		if (!cd->in_xds[f]) {
 			struct cc_channel *ch;
 			vbi_pgno ch_num;
 
@@ -4069,11 +4193,12 @@ xds_filter_option		(struct caption_recorder *cr,
 
 	if (NULL == optarg
 	    || 0 == strcasecmp (optarg, "all")) {
-		unsigned int i;
+		unsigned int i, j;
 
-		for (i = 0; i < (N_ELEMENTS (cr->info[0])
-				 * N_ELEMENTS (cr->info[0][0])); ++i) {
-			cr->info[0][0][i].print = TRUE;
+		for (i = 0; i < N_ELEMENTS (cr->info[0]); ++i) {
+			for (j = 0; j < N_ELEMENTS (cr->info[0][0]); ++j) {
+				cr->info[0][i][j].print = TRUE;
+			}
 		}
 
 		return;
@@ -4683,6 +4808,7 @@ dtvcc_stream_event		(struct dtvcc_decoder *	dc,
 		pr = PARENT (dc, struct program, cr.dtvcc);
 		cr_new_line (&pr->cr, &dw->timestamp_c0,
 			     /* channel */ dtvcc_service_num (dc, ds) + 8,
+			     /* mode */ CC_MODE_ROLL_UP, /* FIXME */
 			     text, /* length */ dw->column_count);
 	}
 
@@ -5938,6 +6064,15 @@ decode_cc_data			(struct program *	pr,
 	unsigned int i;
 	vbi_bool dtvcc;
 
+	if (NULL == buf || n_bytes < 10)
+		return;
+
+	if (pts >= 0)
+		pr->cc_pts = pts;
+
+	if (pr->first_pts < 0)
+		pr->first_pts = pts;
+
 	if (option_debug & DEBUG_CC_DATA) {
 		static int64_t last_pts = 0; /* XXX */
 
@@ -6036,7 +6171,7 @@ decode_cc_data			(struct program *	pr,
 			} else if (!cc_valid) {
 				/* End of DTVCC packet. */
 				dtvcc_decode_packet (&pr->cr.dtvcc,
-						     &pr->now, pts);
+						     &pr->now, pr->cc_pts);
 				pr->cr.dtvcc.packet_size = 0;
 			} else if (j >= 128) {
 				/* Packet buffer overflow. */
@@ -6055,7 +6190,7 @@ decode_cc_data			(struct program *	pr,
 			if (j > 0) {
 				/* End of DTVCC packet. */
 				dtvcc_decode_packet (&pr->cr.dtvcc,
-						     &pr->now, pts);
+						     &pr->now, pr->cc_pts);
 			}
 			if (!cc_valid) {
 				/* No new data. */
@@ -6344,7 +6479,7 @@ init_pmt			(uint8_t		buf[188],
 	   [2], continuity_counter [4] */
 	buf[0] = 0x47;
 	buf[1] = 0x40 | ((pmt_pid & 0x1FFF) >> 8);
-	buf[2] = pmt_pid;
+	buf[2] = (uint8_t) pmt_pid;
 	buf[3] = 0x10 | (vr->pmt_cc & 0x0F);
 	++vr->pmt_cc;
 
@@ -6445,7 +6580,7 @@ init_pat			(uint8_t		buf[188],
 
 	/* reserved [3], program_map_PID [13] */
 	buf[15] = 0xE0 | ((pmt_pid & 0x1FFF) >> 8);
-	buf[16] = pmt_pid;
+	buf[16] = (uint8_t) pmt_pid;
 
 	CRC_32 = mpeg2_crc (buf + 5, 17 - 5);
 	buf[17] = CRC_32 >> 24;
@@ -7514,6 +7649,7 @@ init_program			(struct program *	pr)
 	CLEAR (*pr);
 
 	pr->first_dts = -1;
+	pr->first_pts = -1;
 
 	init_ts_decoder (&pr->tsd);
 	init_video_es_decoder (&pr->vesd);
@@ -8876,6 +9012,10 @@ Options:\n\
 -C | --cc-file file name       Append all caption to this file [stdout]\n\
 -L | --list                    List all TV stations in the channel\n\
                                configuration file\n\
+-S | --stream-time\n\
+-Sdate | --stream-time=date    Prepend timestamps to caption lines counting\n\
+                               from the beginning of the video stream plus\n\
+                               an optional date in format YYYYMMDDHHMMSS\n\
 -T | --ts                      Decode a DVB Transport Stream on stdin\n\
                                instead of opening a DVB device\n\
 -X | --xds-file file name      Append XDS info to this file [stdout]\n\
@@ -8893,7 +9033,7 @@ you can specify caption options and a station name repeatedly.\n\
 static const char
 short_options [] = ("-?1:2:3:4:5:6:7:8:9:0:"
 		    "a:bcd:e:f:hi:j:l:mn:pr:svx"
-		    "C:DELM:PTX:");
+		    "C:DELM:PS::TX:");
 
 #ifdef HAVE_GETOPT_LONG
 static const struct option
@@ -8935,6 +9075,7 @@ long_options [] = {
 	{ "dvr-id",		required_argument,	NULL,	'r' },
 	/* From ntsc-cc.c. */
 	{ "sentences",		no_argument,		NULL,	's' },
+	{ "ucla",		no_argument,		NULL,	'u' },
 	{ "verbose",		no_argument,		NULL,	'v' },
 	/* From ntsc-cc.c. */
 	{ "xds",		no_argument,		NULL,	'x' },
@@ -8944,6 +9085,7 @@ long_options [] = {
 	{ "list",		no_argument,		NULL,	'L' },
 	{ "minicut",		required_argument,	NULL,	'M' },
 	{ "pes",		no_argument,		NULL,	'P' },
+	{ "stream-time",	optional_argument,	NULL,	'S' },
 	{ "ts",			no_argument,		NULL,	'T' },
 	/* From ntsc-cc.c. */
 	{ "xds-file",		required_argument,	NULL,	'X' },
@@ -9327,6 +9469,44 @@ add_program			(void)
 }
 
 static void
+parse_time			(struct timeval *	tv,
+				 const char *		s)
+{
+	struct tm tm;
+	time_t sec;
+
+	tv->tv_sec = 0;
+	tv->tv_usec = 0;
+
+	if (NULL == s)
+		return;
+
+	while (isspace (*s))
+		++s;
+
+	if ('0' == s[0] && 0 == s[1])
+		return;
+
+#ifdef HAVE_STRPTIME
+	if (NULL == strptime (s, "%Y%m%d%H%M%S", &tm))
+		goto invalid;
+#else
+	goto dangit;
+#endif
+
+	sec = timegm (&tm);
+	tv->tv_sec = sec;
+
+	if (sec >= 0)
+		return;
+
+invalid:
+	error_exit ("Invalid date format '%s'\n", s);
+dangit:
+	error_exit ("Cannot parse dates, sorry.\n");
+}
+
+static void
 parse_args			(int			argc,
 				 char **		argv)
 {
@@ -9498,6 +9678,11 @@ parse_args			(int			argc,
 			++n_program_options;
 			break;
 
+		case 'u':
+			pr->cr.option_ucla_prefix = TRUE;
+			++n_program_options;
+			break;
+
 		case 'v':
 			++option_verbosity;
 			break;
@@ -9530,6 +9715,13 @@ parse_args			(int			argc,
 
 		case 'P':
 			option_source = SOURCE_STDIN_PES;
+			break;
+
+		case 'S':
+			pr->cr.option_caption_timestamps = TRUE;
+			pr->cr.option_timestamps_rel = TRUE;
+			parse_time (&pr->rel, optarg);
+			++n_program_options;
 			break;
 
 		case 'T':

@@ -17,7 +17,7 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: packet-830.h,v 1.3 2009/03/04 21:48:40 mschimek Exp $ */
+/* $Id: packet-830.h,v 1.3 2009-03-04 21:48:40 mschimek Exp $ */
 
 #ifndef __ZVBI_PACKET_830_H__
 #define __ZVBI_PACKET_830_H__

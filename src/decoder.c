@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: decoder.c,v 1.25 2008/02/19 00:35:15 mschimek Exp $ */
+/* $Id: decoder.c,v 1.25 2008-02-19 00:35:15 mschimek Exp $ */
 
 /* Note this code is only retained for compatibility with older versions
    of libzvbi. vbi_raw_decoder is now just a wrapper for the new raw

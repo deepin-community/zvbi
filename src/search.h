@@ -2,7 +2,7 @@
  *  libzvbi -- Teletext page cache search functions
  *
  *  Copyright (C) 2000, 2001, 2002 Michael H. Schimek
- *  Copyright (C) 2000, 2001 Iñaki G. Etxebarria
+ *  Copyright (C) 2000, 2001 IÃ±aki G. Etxebarria
  *
  *  Originally based on AleVT 1.5.1 by Edgar Toernig
  *
@@ -22,7 +22,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: search.h,v 1.5 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: search.h,v 1.5 2008-02-19 00:35:22 mschimek Exp $ */
 
 #ifndef SEARCH_H
 #define SEARCH_H

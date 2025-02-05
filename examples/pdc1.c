@@ -25,7 +25,7 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/* $Id: pdc1.c,v 1.2 2009/03/23 01:30:42 mschimek Exp $ */
+/* $Id: pdc1.c,v 1.2 2009-03-23 01:30:42 mschimek Exp $ */
 
 /* This example shows how to receive Program IDs transmitted in VPS
    and Teletext packets using the libzvbi VBI decoder. Example pdc2.c

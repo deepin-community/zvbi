@@ -19,10 +19,10 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: proxy-client.c,v 1.18 2008/02/19 00:35:21 mschimek Exp $ */
+/* $Id: proxy-client.c,v 1.18 2008-02-19 00:35:21 mschimek Exp $ */
 
 static const char rcsid[] =
-"$Id: proxy-client.c,v 1.18 2008/02/19 00:35:21 mschimek Exp $";
+"$Id: proxy-client.c,v 1.18 2008-02-19 00:35:21 mschimek Exp $";
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -40,7 +40,7 @@ static const char rcsid[] =
 #include <sys/types.h>
 
 #include "vbi.h"
-#include "io.h"
+#include "inout.h"
 #include "bcd.h"
 #include "misc.h"
 
@@ -763,7 +763,7 @@ static vbi_bool proxy_client_start_acq( vbi_proxy_client * vpc )
       }
       else if (vpc->endianSwap)
       {  /* endian swapping currently unsupported */
-         asprintf(&vpc->p_errorstr, _("Incompatible server architecture (endianess mismatch)."));
+         asprintf(&vpc->p_errorstr, _("Incompatible server architecture (endianness mismatch)."));
          goto failure;
       }
       else

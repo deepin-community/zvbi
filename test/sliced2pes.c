@@ -19,7 +19,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: sliced2pes.c,v 1.15 2008/03/01 07:36:24 mschimek Exp $ */
+/* $Id: sliced2pes.c,v 1.15 2008-03-01 07:36:24 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 

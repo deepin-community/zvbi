@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: event.c,v 1.2 2009/12/14 23:43:35 mschimek Exp $ */
+/* $Id: event.c,v 1.2 2009-12-14 23:43:35 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

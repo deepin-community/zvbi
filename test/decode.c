@@ -20,7 +20,7 @@
  *  MA 02110-1301, USA.
  */
 
-/* $Id: decode.c,v 1.36 2009/12/14 23:43:52 mschimek Exp $ */
+/* $Id: decode.c,v 1.36 2009-12-14 23:43:52 mschimek Exp $ */
 
 /* For libzvbi version 0.2.x / 0.3.x. */
 
@@ -228,7 +228,11 @@ packet_8301			(const uint8_t		buffer[42],
 	printf ("Teletext packet 8/30/%u cni=%x time=%u gmtoff=%d ",
 		designation, cni, (unsigned int) time, gmtoff);
 
+#ifdef _WIN32
+	gmtime_s (&tm, &time);
+#else
 	gmtime_r (&time, &tm);
+#endif
 
 	printf ("(%4u-%02u-%02u %02u:%02u:%02u UTC)\n",
 		tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday,

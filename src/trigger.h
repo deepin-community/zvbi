@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: trigger.h,v 1.5 2008/02/19 00:35:22 mschimek Exp $ */
+/* $Id: trigger.h,v 1.5 2008-02-19 00:35:22 mschimek Exp $ */
 
 #ifndef TRIGGER_H
 #define TRIGGER_H

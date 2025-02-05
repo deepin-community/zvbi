@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: exp-html.c,v 1.13 2008/02/24 14:18:25 mschimek Exp $ */
+/* $Id: exp-html.c,v 1.13 2008-02-24 14:18:25 mschimek Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

@@ -21,7 +21,7 @@
  */
 
 static const char rcsid [] =
-"$Id: io-v4l.c,v 1.39 2013/07/02 04:04:04 mschimek Exp $";
+"$Id: io-v4l.c,v 1.39 2013-07-02 04:04:04 mschimek Exp $";
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -29,7 +29,7 @@ static const char rcsid [] =
 
 #include "misc.h"
 #include "vbi.h"
-#include "io.h"
+#include "inout.h"
 
 #ifdef ENABLE_V4L
 
@@ -43,7 +43,9 @@ static const char rcsid [] =
 #include <sys/time.h>		/* timeval */
 #include <sys/types.h>		/* fd_set, uid_t */
 #include <sys/stat.h>		/* S_ISCHR */
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>		/* for (_)videodev.h */
+#endif
 #include <pthread.h>
 
 #include "videodev.h"
@@ -540,7 +542,6 @@ open_video_dev(vbi_capture_v4l *v, struct stat *p_vbi_stat, vbi_bool do_dev_scan
 		"/dev/v4l/video3",
 	};
 	struct dirent *dirent;
-	struct dirent *pdirent;
 	DIR *dir;
 	int video_fd;
 	unsigned int i;
@@ -569,9 +570,8 @@ open_video_dev(vbi_capture_v4l *v, struct stat *p_vbi_stat, vbi_bool do_dev_scan
 			goto done;
 		}
 
-		while (0 == readdir_r (dir, dirent, &pdirent)
-		       && pdirent == dirent) {
-			char name[256];
+		while (dirent == readdir (dir)) {
+			char name[sizeof(dirent->d_name)+sizeof("/dev/")-1];
 
 			snprintf (name, sizeof(name),
 				  "/dev/%s", dirent->d_name);

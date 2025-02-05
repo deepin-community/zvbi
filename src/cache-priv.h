@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: cache-priv.h,v 1.2 2008/02/19 00:35:14 mschimek Exp $ */
+/* $Id: cache-priv.h,v 1.2 2008-02-19 00:35:14 mschimek Exp $ */
 
 #ifndef CACHE_PRIV_H
 #define CACHE_PRIV_H

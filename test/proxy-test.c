@@ -26,10 +26,7 @@
  *    and dump requested services' data to standard output.  See below
  *    for a list of possible options.
  *
- *  $Log: proxy-test.c,v $
- *  Revision 1.21  2008/07/26 06:22:19  mschimek
- *  Changed the license to GPLv2+ with Tom's permission.
- *
+ *  $Log: not supported by cvs2svn $
  *  Revision 1.20  2008/03/01 07:36:32  mschimek
  *  Line feed cosmetics.
  *
@@ -89,7 +86,7 @@
  */
 
 static const char
-rcsid [] = "$Id: proxy-test.c,v 1.21 2008/07/26 06:22:19 mschimek Exp $";
+rcsid [] = "$Id: proxy-test.c,v 1.21 2008-07-26 06:22:19 mschimek Exp $";
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -99,6 +96,9 @@ rcsid [] = "$Id: proxy-test.c,v 1.21 2008/07/26 06:22:19 mschimek Exp $";
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#ifdef _WIN32
+#define __STDC_WANT_LIB_EXT1__ 1
+#endif
 #include <time.h>
 #include <string.h>
 #include <sys/types.h>

@@ -19,7 +19,7 @@
  *  Boston, MA  02110-1301  USA.
  */
 
-/* $Id: pfc_demux.h,v 1.14 2008/02/24 14:17:10 mschimek Exp $ */
+/* $Id: pfc_demux.h,v 1.14 2008-02-24 14:17:10 mschimek Exp $ */
 
 #ifndef __ZVBI_PFC_DEMUX_H__
 #define __ZVBI_PFC_DEMUX_H__
