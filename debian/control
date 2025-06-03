@@ -13,8 +13,8 @@ Homepage: https://github.com/zapping-vbi/zvbi
 Vcs-Browser: https://salsa.debian.org/debian/zvbi
 Vcs-Git: https://salsa.debian.org/debian/zvbi.git
 
-Package: libzvbi0t64
-Provides: ${t64:Provides}
+Package: libzvbi0
+Provides: ${Provides}
 Breaks: libzvbi0 (<< ${source:Version})
 Architecture: any
 Section: libs
@@ -64,7 +64,7 @@ Package: libzvbi-dev
 Architecture: any
 Section: libdevel
 Multi-Arch: same
-Depends: libzvbi0t64 (= ${binary:Version}), libpng-dev, ${misc:Depends}
+Depends: libzvbi0 (= ${binary:Version}), libpng-dev, ${misc:Depends}
 Description: Vertical Blanking Interval decoder (VBI) - development files
  The vertical blanking interval (VBI) is an interval in a television signal
  that temporarily suspends transmission of the signal for the electron gun
