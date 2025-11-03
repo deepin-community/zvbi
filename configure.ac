@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 dnl Autoconf initialization
 AC_PREREQ([2.71])
-AC_INIT([zvbi],[0.2.43])
+AC_INIT([zvbi],[0.2.44])
 
 AC_CONFIG_SRCDIR(src/vbi.c)
 AC_CONFIG_HEADERS([config.h])
@@ -499,6 +499,9 @@ AM_CONDITIONAL(RUN_CHECK_SCRIPTS, [test "x$run_check_scripts" = xyes])
 dnl
 dnl Native language support.
 dnl
+# If issues found with using a different gettext version than below and
+# performing a crossbuild, update AM_GNU_GETTEXT_VERSION to match and
+# run autogen.sh to update necessary files.
 AM_GNU_GETTEXT_VERSION([0.21])
 AM_GNU_GETTEXT([external], [need-ngettext])
 LIBS="$LTLIBINTL $LIBS"
