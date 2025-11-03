@@ -1,14 +1,10 @@
-zvbi (0.2.43-2deepin2) unstable; urgency=medium
+zvbi (0.2.44-1) unstable; urgency=medium
 
-  * Compatible with old environments with pre installed libzvbi0t64.
+  * New upstream release.
+  * d/control: Bump Standards-Version from 4.7.0 to 4.7.2.
+  * d/copyright: Update debian copyright year to 2025.
 
- -- liujianqiang <liujianqiang@uniontech.com>  Thu, 05 Jun 2025 15:19:30 +0800
-
-zvbi (0.2.43-2deepin1) unstable; urgency=medium
-
-  * revert 64-bit time_t transition patch.
-
- -- lichenggang <lichenggang@deepin.org>  Tue, 03 Jun 2025 14:19:46 +0800
+ -- Ileana Dumitrescu <ileanadumitrescu95@gmail.com>  Tue, 11 Mar 2025 17:28:56 +0200
 
 zvbi (0.2.43-2) unstable; urgency=medium
 
