@@ -1,3 +1,10 @@
+zvbi (0.2.44-1deepin1) unstable; urgency=medium
+
+  * revert 64-bit time_t transition patch.
+  * Compatible with old environments with pre installed libzvbi0t64. 
+
+ -- zengwei <zengwei1@uniontech.com>  Mon, 03 Nov 2025 14:53:57 +0800
+
 zvbi (0.2.44-1) unstable; urgency=medium
 
   * New upstream release.
