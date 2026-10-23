@@ -1,1 +1,2 @@
 disable-test-pdc-on-debian.patch
+CVE-2026-110654.patch

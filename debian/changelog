@@ -1,3 +1,12 @@
+zvbi (0.2.44-1deepin3) unstable; urgency=medium
+
+  * fix(cve): CVE-2026-110654 (medium) - src/packet.c: Fix CVE-2026-
+    110654 as detailed in report.   Upstream:
+    https://github.com/zapping-
+    vbi/zvbi/commit/ec27c1eeb1f442aac287e1295ab6fe6f818250a1
+
+ -- deepin-ci-robot <packages@deepin.org>  Fri, 23 Oct 2026 08:47:34 +0800
+
 zvbi (0.2.44-1deepin2) unstable; urgency=medium
 
   * Rebuild with LTO enabled (dpkg vendor feature optimize/lto).
